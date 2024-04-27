@@ -1,0 +1,55 @@
+
+.workspace {
+  height: 400px;
+  width: 600px;
+  border: 1px black solid;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.innerworkspace-top {
+  height: 40%;
+  width: 90%;
+  margin: auto;
+  /* background-color: red; */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.innerworkspace-bot {
+  height: 40%;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.holder {
+  height: 159px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: solid 5px gold; */
+}
+.square-obj {
+  height: 140px;
+  width: 140px;
+  background-color: yellow;
+  /* background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, yellow); */
+  /* background-size: 50px 50px; */
+}
+.circle-obj {
+  height: 142px;
+  width: 142px;
+  border-radius: 50%;
+  background-color: red;
+}
+.triangle-obj {
+  width: 0;
+  border-bottom: 140px solid blue;
+  border-left: 70px solid white;
+  border-right: 70px solid white;
+}
