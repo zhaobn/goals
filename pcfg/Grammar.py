@@ -39,17 +39,29 @@ class Rational_rules:
       return tree_str, log_prob
 
 
-# %% Debug
+# %%
+# productions = [
+#   ['S', ['and(S,S)', 'A']],
+#   ['A', ['equa(B)', 'less(B)', 'nequ(B)']],
+#   ['B', ['C', 'D']],
+#   ['C', ['shape(E),shape(E)', 'color(E),color(E)', 'texture(E),texture(E)']],
+#   ['D', ['shape(E),F', 'color(E),G', 'texture(E),H']],
+#   ['E', ['a', 'b', 'c']],
+#   ['F', ['square', 'circle', 'triangle']],
+#   ['G', ['light', 'medium', 'dark']],
+#   ['H', ['plain', 'stripe']],
+
+# ]
 productions = [
   ['S', ['and(S,S)', 'A']],
-  ['A', ['equa(B)', 'less(B)', 'nequ(B)']],
-  ['B', ['C', 'D']],
-  ['C', ['shape(E),shape(E)', 'color(E),color(E)', 'texture(E),texture(E)']],
-  ['D', ['shape(E),F', 'color(E),G', 'texture(E),H']],
-  ['E', ['a', 'b', 'c']],
-  ['F', ['square', 'circle', 'triangle']],
-  ['G', ['light', 'medium', 'dark']],
-  ['H', ['plain', 'stripe']],
+  ['A', ['same(B,C)', 'unique(B,C)']],
+  ['B', ['everything', 'D', 'E']],
+  ['C', ['true', 'color', 'shape', 'texture', 'F']],
+  ['D', ['one', 'G']],
+  ['E', ['two', 'H']],
+  ['F', ['square', 'circle', 'triangle', 'light', 'medium', 'dark', 'plain', 'stripe']],
+  ['G', ['a', 'b', 'c']],
+  ['H', ['ab', 'ac', 'bc']],
 
 ]
 test = Rational_rules(productions, cap=100)
@@ -74,6 +86,6 @@ result_df = pd.merge(grouped_df, count_df, on='program')
 result_df = result_df.sort_values(by='count', ascending=False).reset_index()
 
 
-result_df[['program', 'lp', 'count']].to_csv('programs.csv', index=False)
+result_df[['program', 'lp', 'count']].to_csv('programs_2.csv', index=False)
 
 # %%
