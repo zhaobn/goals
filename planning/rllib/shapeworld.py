@@ -111,6 +111,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         return is_absorbing
 
     def plot(self, ax=None):
+        # TODO: I should implement some form of visualization to make sure that everything is working as expected.
         raise NotImplementedError
     
     # helper functions
