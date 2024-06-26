@@ -136,7 +136,7 @@ for state in tqdm(all_states):
     env = ShapeWorld(goal_state, discount_rate)
     
     # Initialize the Bellman updater for the new environment
-    bellman_updater = BellmanUpdater(mdp=env, initial_value=0, threshold=20, verbose=False)
+    bellman_updater = BellmanUpdater(mdp=env, initial_value=0, threshold=1e-6, verbose=False)
     
     # Run value iteration
     bellman_updater.value_iteration()
