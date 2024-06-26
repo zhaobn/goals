@@ -22,7 +22,7 @@ a3r2 = Action(2, 1)
 
 class ShapeWorld(MarkovDecisionProcess[State, Action]):
     GOAL = None
-    GOAL_REWARD = 0 # we let this be zero because of averaging across Q-tables we do later
+    GOAL_REWARD = 100 # we let this be zero because of averaging across Q-tables we do later
     STEP_COST = -1
     SHAPE_LIST = tuple(['circle','square','triangle'])
     SHADE_LIST = tuple(['low','medium','high'])
@@ -59,6 +59,9 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             a : Action,
             rng : random.Random = random
     ) -> State:
+        '''
+        Given a state and action, return a possible next state.
+        '''
         # determine if recipient shape changes
         if rng.random() < self.SHAPE_TRANSITION_PROB:
             sides = s[a.actor].sides
@@ -83,9 +86,57 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         # instantiate next state
         new_state_list  = [s[0], s[1], s[2]]
         new_state_list[a.recipient] = Shape(sides, shade, texture)
-        new_state = tuple(new_state_list)
+        new_state = State(*new_state_list)
 
         return new_state
+    
+    def get_possible_next_states(self, s: State, a: Action) -> Sequence[State]:
+        """Return the possible next states given a state and action."""
+        
+        # either the recipient shape takes on parent shape or doesn't
+        possible_sides = [s[a.actor].sides, s[a.recipient].sides]
+        # recipient becomes lighter, darker, or same
+        possible_shades = [
+            s[a.recipient].shade,
+            self._get_lighter_shade(s[a.recipient].shade),
+            self._get_darker_shade(s[a.recipient].shade)]
+        # texture always changes
+        possible_texture = ['not_present' if s[a.recipient].texture == 'present' else 'present']
+        possible_states = set()
+
+        # create all possible next states by replacing recipient state
+        for side in possible_sides:
+            for shade in possible_shades:
+                for texture in possible_texture:
+                    new_shape = Shape(side, shade, texture)
+                    new_state_list = [s[0], s[1], s[2]] # shapes of current state
+                    new_state_list[a.recipient] = new_shape
+                    new_state = State(*new_state_list) # unpack new state list
+                    possible_states.add(new_state) # using a set ensures uniqueness
+
+        return list(possible_states)
+    
+    def transition_probability(self, s: State, a: Action, ns: State) -> float:
+        """Return the transition probability from state s to state ns given action a."""
+        # determine if recipient shape changes
+        if ns[a.recipient].sides != s[a.actor].sides:
+            return 1 - self.SHAPE_TRANSITION_PROB
+        else:
+            # determine if the recipient shade changes
+            if self._is_darker(s[a.actor].shade, s[a.recipient].shade) and ns[a.recipient].shade == self._get_darker_shade(s[a.recipient].shade):
+                return self.SHAPE_TRANSITION_PROB
+            elif self._is_lighter(s[a.actor].shade, s[a.recipient].shade) and ns[a.recipient].shade == self._get_lighter_shade(s[a.recipient].shade):
+                return self.SHAPE_TRANSITION_PROB
+            elif s[a.recipient].shade == ns[a.recipient].shade:
+                # determine recipient texture change
+                if s[a.recipient].texture == 'present' and ns[a.recipient].texture == 'not_present':
+                    return self.SHAPE_TRANSITION_PROB
+                elif s[a.recipient].texture == 'not_present' and ns[a.recipient].texture == 'present':
+                    return self.SHAPE_TRANSITION_PROB
+                elif s[a.recipient].texture == ns[a.recipient].texture:
+                    return 1
+            else:
+                return 0
     
     def reward(self, s: State, a : Action, ns : State) -> float:
         reward = self.STEP_COST
@@ -126,8 +177,16 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
     
     def _get_darker_shade(self, shade):
         current_idx = self.SHADE_LIST.index(shade)
-        return self.SHADE_LIST[current_idx + 1] if current_idx > 0 else shade
-    
+        # if shade cannot go lower
+        if current_idx == len(self.SHADE_LIST) - 1:
+            return shade
+        else:
+            return self.SHADE_LIST[current_idx + 1]
     def _get_lighter_shade(self, shade):
         current_idx = self.SHADE_LIST.index(shade)
-        return self.SHADE_LIST[current_idx - 1] if current_idx < len(self.SHADE_LIST) else shade
+        # if shade cannot go lower
+        if current_idx - 1 < 0:
+            return shade
+        else:
+            return self.SHADE_LIST[current_idx - 1]
+        

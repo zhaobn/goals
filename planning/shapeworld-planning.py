@@ -14,7 +14,7 @@ Summary:
 # Custom class imports
 from rllib.shapeworld import ShapeWorld
 from rllib.tools import isclose
-from rllib.mdp import MarkovDecisionProcess, MDPPolicy, QLearner
+from rllib.mdp import MarkovDecisionProcess, MDPPolicy, QLearner, BellmanUpdater
 # from rllib.distributions import DiscreteDistribution
 from rllib.gymwrap import GymWrapper
 from rllib.simulation_result import TDLearningSimulationResult
@@ -60,7 +60,7 @@ shape_env = GymWrapper(shape_world) # uses MDP object for simulation object
 ##################################################
 # LEARNER SPECIFICATION
 ##################################################
-
+'''
 qlearner = QLearner(
     discount_rate = shape_world.discount_rate,
     learning_rate = 0.1,
@@ -68,11 +68,11 @@ qlearner = QLearner(
     epsilon=0.2, # uses epsilon greedy
     action_space=shape_world.action_space
 )
-
+'''
 ##################################################
 # SIMULATION SPECIFICATION
 ##################################################
-
+'''
 results = simulation_loop(
     env = shape_env,
     policy = qlearner,
@@ -80,3 +80,31 @@ results = simulation_loop(
     max_steps=1000,
     seed = None
 )
+'''
+##################################################
+# VALUE ITERATION
+##################################################
+
+# Define the ShapeWorld MDP (assume it's correctly implemented and imported)
+discount_rate = 0.5
+goal_state = State(
+    Shape('circle', 'low', 'present'),
+    Shape('circle', 'low', 'present'),
+    Shape('circle', 'low', 'present')
+    #Shape('square', 'medium', 'not_present'),
+    #Shape('triangle', 'high', 'present')
+)
+env = ShapeWorld(goal_state, discount_rate)
+
+# Initialize the Bellman updater
+bellman_updater = BellmanUpdater(mdp = env, 
+                                 initial_value=0,
+                                 threshold=1e-6)
+
+# Run value iteration
+bellman_updater.value_iteration()
+
+# Retrieve the value of a specific state
+state_value = bellman_updater.get_value(goal_state)
+print(f"Value of the goal state: {state_value}")
+print(f"Converged in {bellman_updater.iterations} iterations")

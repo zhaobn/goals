@@ -2,6 +2,7 @@ from typing import Sequence, Hashable, TypeVar, Generic, Container
 import random
 from random import Random
 from collections import defaultdict, Counter
+from tqdm import tqdm
 
 # from .distributions import Distribution, DiscreteDistribution, Uniform, Gaussian
 
@@ -16,6 +17,7 @@ class MarkovDecisionProcess(Generic[State, Action]):
     state_space : Sequence[State]
     state_action_space : Sequence[tuple[State, Action]]
 
+    #TODO: change function name to get_actions()
     def actions(self, s : State) -> Sequence[Action]:
         '''Return the action space.'''
         return self.action_space
@@ -98,4 +100,53 @@ class QLearner(BaseLearner):
         td_error = td_target - self.estimated_state_action_values[s][a]
         self.estimated_state_action_values[s][a] += self.learning_rate * td_error
 
+class BellmanUpdater(Generic[State, Action]):
+    def __init__(self, mdp: MarkovDecisionProcess[State, Action], 
+                 initial_value: float = 0.0,
+                 threshold: float = 1e-6,
+                 verbose: bool = True):
+        self.mdp = mdp
+        self.threshold = threshold
+        self.value_function = defaultdict(lambda: initial_value)
+        self.iterations = 0
+        self.delta = float('inf')
+        self.verbose = verbose
+        self.initial_value = initial_value
+    
+    def value_iteration(self):
+        while self.delta > self.threshold:
+            self.delta = 0
+            new_value_function = defaultdict(float)
 
+            for s in tqdm(self.mdp.state_space, desc="States", disable=not self.verbose):
+                if self.mdp.is_absorbing(s):
+                    new_value_function[s] = 0.0
+                else:
+                    q_values = []
+
+                    for a in self.mdp.actions(s):
+                        q_value = 0.0
+                        for ns in self.mdp.get_possible_next_states(s, a):
+                            reward = self.mdp.reward(s, a, ns)
+                            prob = self.mdp.transition_probability(s, a, ns)
+                            q_value += prob * (reward + self.mdp.discount_rate * self.value_function[ns])
+                        q_values.append(q_value)
+
+                    new_value_function[s] = max(q_values)
+                    self.delta = max(self.delta, abs(new_value_function[s] - self.value_function[s]))
+
+            self.value_function = new_value_function
+            self.iterations += 1
+            if self.verbose:
+                print(f"Iteration {self.iterations}, Delta: {self.delta}")
+
+    def get_value(self, s: State) -> float:
+        return self.value_function.get(s, 0.0)
+    
+    def reset(self):
+        self.value_function = defaultdict(lambda: self.initial_value)
+        self.iterations = 0
+        self.delta = float('inf')
+
+    def has_converged(self) -> bool:
+        return self.iterations > 0 and self.delta <= self.threshold
