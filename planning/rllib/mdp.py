@@ -118,7 +118,7 @@ class BellmanUpdater(Generic[State, Action]):
             self.delta = 0
             new_value_function = defaultdict(float)
 
-            for s in tqdm(self.mdp.state_space, desc="States", disable=not self.verbose):
+            for s in self.mdp.state_space:
                 if self.mdp.is_absorbing(s):
                     new_value_function[s] = 0.0
                 else:
@@ -142,6 +142,9 @@ class BellmanUpdater(Generic[State, Action]):
 
     def get_value(self, s: State) -> float:
         return self.value_function.get(s, 0.0)
+    
+    def get_value_function(self) -> dict:
+        return dict(self.value_function)
     
     def reset(self):
         self.value_function = defaultdict(lambda: self.initial_value)

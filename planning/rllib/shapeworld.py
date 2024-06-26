@@ -49,6 +49,11 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         self.action_space = tuple([a1r2, a1r3, a2r1, a2r3, a3r1, a3r2])
         self.state_action_space = tuple(product(self.state_space, self.action_space))
 
+    
+    def get_state_space(self) -> Sequence[State]:
+        '''Return the state space.'''
+        return self.state_space
+    
     def actions(self, s : State) -> Sequence[Action]:
         '''Return the action space.'''
         return self.action_space

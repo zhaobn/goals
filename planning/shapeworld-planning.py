@@ -33,6 +33,7 @@ import random
 from random import Random
 from collections import defaultdict, Counter
 import gymnasium as gym
+from tqdm import tqdm
 
 # Plotting libraries
 import matplotlib.pyplot as plt
@@ -46,7 +47,7 @@ Action = namedtuple('Action',['actor','recipient'])
 ##################################################
 # ENVIRONMENT SPECIFICATION
 ##################################################
-
+'''
 # Specify the goal state for this simulation
 shape1 = Shape(sides='circle', shade='medium', texture='present')
 shape2 = Shape(sides='square', shade='low', texture='present')
@@ -56,7 +57,7 @@ goal = State(shape1, shape1, shape1)
 # Create the shape world environment
 shape_world = ShapeWorld(goal=goal, discount_rate=0.8) # MDP object
 shape_env = GymWrapper(shape_world) # uses MDP object for simulation object
-
+'''
 ##################################################
 # LEARNER SPECIFICATION
 ##################################################
@@ -82,9 +83,9 @@ results = simulation_loop(
 )
 '''
 ##################################################
-# VALUE ITERATION
+# VALUE ITERATION FOR A SINGLE GOAL
 ##################################################
-
+'''
 # Define the ShapeWorld MDP (assume it's correctly implemented and imported)
 discount_rate = 0.5
 goal_state = State(
@@ -108,3 +109,59 @@ bellman_updater.value_iteration()
 state_value = bellman_updater.get_value(goal_state)
 print(f"Value of the goal state: {state_value}")
 print(f"Converged in {bellman_updater.iterations} iterations")
+'''
+##################################################
+# VALUE ITERATION FOR ALL GOALS
+##################################################
+
+# create an environment so we can get the state space
+discount_rate = 0.5
+goal_state = State(
+    Shape('circle', 'low', 'present'),
+    Shape('circle', 'low', 'present'),
+    Shape('circle', 'low', 'present')
+    #Shape('square', 'medium', 'not_present'),
+    #Shape('triangle', 'high', 'present')
+)
+env = ShapeWorld(goal_state, discount_rate)
+
+# Loop through every state in the ShapeWorld object env
+all_states = env.get_state_space()
+value_functions = {}  # Dictionary to store the value functions
+discount_rate = 0.5
+
+for state in tqdm(all_states):
+    # Create a new environment with the current state as the goal state
+    goal_state = state
+    env = ShapeWorld(goal_state, discount_rate)
+    
+    # Initialize the Bellman updater for the new environment
+    bellman_updater = BellmanUpdater(mdp=env, initial_value=0, threshold=20, verbose=False)
+    
+    # Run value iteration
+    bellman_updater.value_iteration()
+    
+    # Retrieve the value of the goal state
+    value_function = bellman_updater.get_value(goal_state)
+    
+    # Store the value function in the dictionary
+    value_functions[state] = value_function
+
+# Save the value functions as a file
+filename = '/Users/jbbyers/Research/Goals as Concepts/goals/value_functions.pkl'
+pd.to_pickle(value_functions, filename)
+print(f"Value functions saved as {filename}")
+
+# Calculate average value for each goal state
+goal_value_function = {}
+for goal_state, value_function in value_functions.items():
+    average_value = np.mean(list(value_function.values()))
+    goal_value_function[goal_state] = average_value
+
+# Save the goal value function as a pickle file
+goal_value_function_filename = '/Users/jbbyers/Research/Goals as Concepts/goals/goal_value_function.pkl'
+pd.to_pickle(goal_value_function, goal_value_function_filename)
+print(f"Goal value function saved as {goal_value_function_filename}")
+
+
+##################################################
