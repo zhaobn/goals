@@ -16,10 +16,10 @@ from rllib.shapeworld import ShapeWorld
 from rllib.tools import isclose
 from rllib.mdp import MarkovDecisionProcess, MDPPolicy, QLearner, BellmanUpdater
 # from rllib.distributions import DiscreteDistribution
-from rllib.gymwrap import GymWrapper
-from rllib.simulation_result import TDLearningSimulationResult
+# from rllib.gymwrap import GymWrapper
+#from rllib.simulation_result import TDLearningSimulationResult
 # function for running an RL simulation
-from rllib.tools import simulation_loop
+#from rllib.tools import simulation_loop
 
 # Other libraries
 import numpy as np
@@ -32,7 +32,7 @@ from itertools import product
 import random
 from random import Random
 from collections import defaultdict, Counter
-import gymnasium as gym
+# import gymnasium as gym
 from tqdm import tqdm
 
 # Plotting libraries
@@ -44,72 +44,6 @@ Shape = namedtuple('Shape',['sides', 'shade', 'texture'])
 State = namedtuple('State',['shape1', 'shape2', 'shape3'])
 Action = namedtuple('Action',['actor','recipient'])
 
-##################################################
-# ENVIRONMENT SPECIFICATION
-##################################################
-'''
-# Specify the goal state for this simulation
-shape1 = Shape(sides='circle', shade='medium', texture='present')
-shape2 = Shape(sides='square', shade='low', texture='present')
-shape3 = Shape(sides='square', shade='low', texture='present')
-goal = State(shape1, shape1, shape1)
-
-# Create the shape world environment
-shape_world = ShapeWorld(goal=goal, discount_rate=0.8) # MDP object
-shape_env = GymWrapper(shape_world) # uses MDP object for simulation object
-'''
-##################################################
-# LEARNER SPECIFICATION
-##################################################
-'''
-qlearner = QLearner(
-    discount_rate = shape_world.discount_rate,
-    learning_rate = 0.1,
-    initial_value= 0, # default value for all states
-    epsilon=0.2, # uses epsilon greedy
-    action_space=shape_world.action_space
-)
-'''
-##################################################
-# SIMULATION SPECIFICATION
-##################################################
-'''
-results = simulation_loop(
-    env = shape_env,
-    policy = qlearner,
-    n_episodes=100,
-    max_steps=1000,
-    seed = None
-)
-'''
-##################################################
-# VALUE ITERATION FOR A SINGLE GOAL
-##################################################
-'''
-# Define the ShapeWorld MDP (assume it's correctly implemented and imported)
-discount_rate = 0.5
-goal_state = State(
-    Shape('circle', 'low', 'present'),
-    Shape('circle', 'low', 'present'),
-    Shape('circle', 'low', 'present')
-    #Shape('square', 'medium', 'not_present'),
-    #Shape('triangle', 'high', 'present')
-)
-env = ShapeWorld(goal_state, discount_rate)
-
-# Initialize the Bellman updater
-bellman_updater = BellmanUpdater(mdp = env, 
-                                 initial_value=0,
-                                 threshold=1e-6)
-
-# Run value iteration
-bellman_updater.value_iteration()
-
-# Retrieve the value of a specific state
-state_value = bellman_updater.get_value(goal_state)
-print(f"Value of the goal state: {state_value}")
-print(f"Converged in {bellman_updater.iterations} iterations")
-'''
 ##################################################
 # VALUE ITERATION FOR ALL GOALS
 ##################################################
@@ -148,7 +82,7 @@ for state in tqdm(all_states):
     value_functions[state] = value_function
 
 # Save the value functions as a file
-filename = '/Users/jbbyers/Research/Goals as Concepts/goals/value_functions.pkl'
+filename = '/jukebox/niv/branson/goals/planning/value_functions.pkl'
 pd.to_pickle(value_functions, filename)
 print(f"Value functions saved as {filename}")
 
@@ -159,7 +93,7 @@ for goal_state, value_function in value_functions.items():
     goal_value_function[goal_state] = average_value
 
 # Save the goal value function as a pickle file
-goal_value_function_filename = '/Users/jbbyers/Research/Goals as Concepts/goals/goal_value_function.pkl'
+goal_value_function_filename = '/jukebox/niv/branson/goals/planning/goal_value_function.pkl'
 pd.to_pickle(goal_value_function, goal_value_function_filename)
 print(f"Goal value function saved as {goal_value_function_filename}")
 

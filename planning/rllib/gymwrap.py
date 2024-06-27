@@ -1,7 +1,7 @@
 import random
 from typing import Union, Any
 import numpy as np
-import gymnasium as gym
+# import gymnasium as gym
 from .mdp import MarkovDecisionProcess
 from typing import Sequence, Hashable, TypeVar, Generic, Container, Any, Union, Counter
 from collections import namedtuple
