@@ -12,7 +12,7 @@
 #SBATCH --cpus-per-task=4
 
 # Number of subjects to simulate
-#SBATCH --array=1-10
+#SBATCH --array=0-1  #5832
 # --------------------------------------------------------------------------------
 
 module load anacondapy/2024.02 # load the system module for conda
