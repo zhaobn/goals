@@ -118,7 +118,7 @@ class BellmanUpdater(Generic[State, Action]):
             self.delta = 0
             new_value_function = defaultdict(float)
 
-            for s in self.mdp.state_space:
+            for s in tqdm(self.mdp.state_space):
                 if self.mdp.is_absorbing(s):
                     new_value_function[s] = 0.0
                 else:
