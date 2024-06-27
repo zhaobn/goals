@@ -16,10 +16,10 @@ from rllib.shapeworld import ShapeWorld
 from rllib.tools import isclose
 from rllib.mdp import MarkovDecisionProcess, MDPPolicy, QLearner, BellmanUpdater
 # from rllib.distributions import DiscreteDistribution
-from rllib.gymwrap import GymWrapper
-from rllib.simulation_result import TDLearningSimulationResult
+# from rllib.gymwrap import GymWrapper
+#from rllib.simulation_result import TDLearningSimulationResult
 # function for running an RL simulation
-from rllib.tools import simulation_loop
+#from rllib.tools import simulation_loop
 
 # Other libraries
 import numpy as np
@@ -32,12 +32,11 @@ from itertools import product
 import random
 from random import Random
 from collections import defaultdict, Counter
-import gymnasium as gym
 from tqdm import tqdm
-import os
+#import os
 
 # make sure working directory is as expected
-print(os.getcwd())
+#print(os.getcwd())
 
 # Plotting libraries
 import matplotlib.pyplot as plt

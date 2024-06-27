@@ -6,7 +6,7 @@
 #SBATCH -e 'slurm-log/rl-planning-%A_%a.err'
 #SBATCH --mail-user=jbbyers@princeton.edu
 #SBATCH --mail-type=ALL
-#SBATCH --mem=8g
+#SBATCH --mem=2g
 
 # minutes allocated for job on cluster
 #SBATCH --cpus-per-task=4
@@ -17,5 +17,5 @@
 
 module load anacondapy/2024.02 # load the system module for conda
 conda activate goals-concepts # activate the conda environment for this project
-./shapeworld-planning.py $SLURM_ARRAY_TASK_ID
+python value-iteration.py $SLURM_ARRAY_TASK_ID
 
