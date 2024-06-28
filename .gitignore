@@ -4,3 +4,7 @@ __pycache__/
 
 # python venv
 goals/
+
+slurm-log/
+
+value-iteration-results/

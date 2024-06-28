@@ -15,7 +15,7 @@ class MarkovDecisionProcess(Generic[State, Action]):
     discount_rate : float
     action_space : Sequence[Action]
     state_space : Sequence[State]
-    state_action_space : Sequence[tuple[State, Action]]
+    state_action_space : Sequence['tuple[State, Action]']
 
     #TODO: change function name to get_actions()
     def actions(self, s : State) -> Sequence[Action]:
@@ -118,7 +118,7 @@ class BellmanUpdater(Generic[State, Action]):
             self.delta = 0
             new_value_function = defaultdict(float)
 
-            for s in tqdm(self.mdp.state_space):
+            for s in self.mdp.state_space:
                 if self.mdp.is_absorbing(s):
                     new_value_function[s] = 0.0
                 else:

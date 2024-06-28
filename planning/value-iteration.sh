@@ -1,3 +1,4 @@
+#!/bin/sh
 
 # ----------- VARIABLES FOR SLURM SCHEDULER -----------
 #SBATCH -t 10
@@ -6,16 +7,18 @@
 #SBATCH -e 'slurm-log/rl-planning-%A_%a.err'
 #SBATCH --mail-user=jbbyers@princeton.edu
 #SBATCH --mail-type=ALL
-#SBATCH --mem=2g
+#SBATCH --mem=1g
 
 # minutes allocated for job on cluster
 #SBATCH --cpus-per-task=4
 
 # Number of subjects to simulate
-#SBATCH --array=0-1  #5832
+#SBATCH --array=0-832  
 # --------------------------------------------------------------------------------
-
+#5832 = total states
 module load anacondapy/2024.02 # load the system module for conda
 conda activate goals-concepts # activate the conda environment for this project
-python value-iteration.py $SLURM_ARRAY_TASK_ID
+# Calculate the actual task ID
+ACTUAL_TASK_ID=$(($SLURM_ARRAY_TASK_ID + 5002))
+python value_iteration.py $ACTUAL_TASK_ID
 
