@@ -14,7 +14,7 @@ Summary:
 # Custom class imports
 from rllib.shapeworld import ShapeWorld
 from rllib.tools import isclose
-from rllib.mdp import MarkovDecisionProcess, MDPPolicy, QLearner, BellmanUpdater
+from rllib.mdp import MarkovDecisionProcess, MDPPolicy, QLearner, ValueIteration
 # from rllib.distributions import DiscreteDistribution
 # from rllib.gymwrap import GymWrapper
 #from rllib.simulation_result import TDLearningSimulationResult
@@ -70,9 +70,9 @@ goal_state = state_space[goal_index]
 env = ShapeWorld(goal_state, discount_rate)
 
 # Value Iteration
-bellman_updater = BellmanUpdater(mdp=env, initial_value=0, threshold=1e-6, verbose=True)
-bellman_updater.value_iteration()
-value_function = bellman_updater.get_value_function()
+value_it = ValueIteration(mdp=env, initial_value=0, threshold=1e-6, verbose=True)
+value_it.value_iteration()
+value_function = value_it.get_value_function()
 
 # Save the converged value function
 filename = f'./value-iteration-results/value_function_goal_{goal_index}.pkl'

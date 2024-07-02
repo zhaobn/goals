@@ -8,6 +8,22 @@ from collections import Counter
 from .mdp import MDPPolicy, MarkovDecisionProcess
 from .shapeworld import ShapeWorld
 
+class Simulation:
+    def __init__(
+            self,
+            trajectory,
+            state_values,
+            policy : MDPPolicy,
+            mdp : MarkovDecisionProcess
+    ):
+        self.trajectory = trajectory
+        self.state_values = state_values
+        self.policy = policy
+        self.mdp = mdp # shape world
+
+    def plot_timestep(self, timestep):
+        raise NotImplementedError
+
 class TDLearningSimulationResult:
     def __init__(
             self,

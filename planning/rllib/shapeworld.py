@@ -20,6 +20,7 @@ a2r3 = Action(1, 2)
 a3r1 = Action(2, 0)
 a3r2 = Action(2, 1)
 
+
 class ShapeWorld(MarkovDecisionProcess[State, Action]):
     GOAL = None
     GOAL_REWARD = 100 # we let this be zero because of averaging across Q-tables we do later
@@ -39,7 +40,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
                 for (sides, shade, texture) 
                     in product(self.SHAPE_LIST,self.SHADE_LIST,self.TEXTURE_LIST)
         )
-
+            
         # set up state space
         self.state_space : Sequence[State] = tuple(
             State(shape1, shape2, shape3) for(shape1, shape2, shape3) in product(shape_space, shape_space, shape_space)
@@ -49,12 +50,11 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         self.action_space = tuple([a1r2, a1r3, a2r1, a2r3, a3r1, a3r2])
         self.state_action_space = tuple(product(self.state_space, self.action_space))
 
-    
     def get_state_space(self) -> Sequence[State]:
         '''Return the state space.'''
         return self.state_space
     
-    def actions(self, s : State) -> Sequence[Action]:
+    def get_actions(self, s : State) -> Sequence[Action]:
         '''Return the action space.'''
         return self.action_space
     
@@ -153,7 +153,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         '''
         Check to see if state is absorbing. 
 
-        For this conetext, the goal state is our absorbing state, and the simulation should be terminated if reached.
+        For this context, the goal state is our absorbing state, and the simulation should be terminated if reached.
 
         Returns:
             bool: Whether the state is an absorbing state or not.
@@ -187,6 +187,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             return shade
         else:
             return self.SHADE_LIST[current_idx + 1]
+    
     def _get_lighter_shade(self, shade):
         current_idx = self.SHADE_LIST.index(shade)
         # if shade cannot go lower
@@ -194,4 +195,32 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             return shade
         else:
             return self.SHADE_LIST[current_idx - 1]
-        
+
+
+class GoalWorld(MarkovDecisionProcess[State, Action]):
+    GOAL_REWARD = 100 # we let this be zero because of averaging across Q-tables we do later
+    STEP_COST = -1
+    SHAPE_LIST = tuple(['circle','square','triangle'])
+    SHADE_LIST = tuple(['low','medium','high'])
+    TEXTURE_LIST = tuple(['present','not_present'])
+
+    def __init__(self):
+
+        # set up shapeworld shape space
+        shape_space : Sequence[Shape] = tuple(
+            Shape(sides, shade, texture) 
+                for (sides, shade, texture) 
+                    in product(self.SHAPE_LIST,self.SHADE_LIST,self.TEXTURE_LIST)
+        )
+
+        # set up state space
+        self.state_space : Sequence[State] = tuple(
+            State(shape1, shape2, shape3) for(shape1, shape2, shape3) in product(shape_space, shape_space, shape_space)
+        )
+
+        self.num_states = len(self.state_space)
+
+    def get_state_space(self) -> Sequence[State]:
+        '''Return the state space.'''
+        return self.state_space
+    

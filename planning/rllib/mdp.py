@@ -1,14 +1,19 @@
 from typing import Sequence, Hashable, TypeVar, Generic, Container
 import random
-from random import Random
+import numpy as np
+from random import Random, sample
 from collections import defaultdict, Counter
 from tqdm import tqdm
+from typing import TypeVar
+from math import log
+import pandas as pd
 
 # from .distributions import Distribution, DiscreteDistribution, Uniform, Gaussian
 
 # We want actions to be hashable so that we can use them as dictionary keys for Q-learning later
 Action = TypeVar('Action', bound=Hashable)
 State = TypeVar('State', bound=Hashable)
+Likelihood = TypeVar('Likelihood', float, int)
 
 class MarkovDecisionProcess(Generic[State, Action]):
     '''A general class for many MDPs.'''
@@ -38,7 +43,7 @@ class MDPPolicy(Generic[State, Action]):
     '''
     DISCOUNT_RATE : float
 
-    def action_sample(self, s : State, rng : Random = random) -> Action:
+    def sample_action(self, s : State, rng : Random = random) -> tuple[Action, Likelihood]:
         '''Sample which actions to take.'''
         raise NotImplementedError
     
@@ -78,7 +83,7 @@ class BaseLearner(MDPPolicy):
     def state_value(self, s) -> float:
         return max(self.estimated_state_action_values[s].values())
     
-    def action_sample(self, s, rng = random):
+    def sample_action(self, s, rng = random):
         # e-greedy action selection
         if rng.random() < self.epsilon:
             return rng.choice(self.action_space)
@@ -100,7 +105,7 @@ class QLearner(BaseLearner):
         td_error = td_target - self.estimated_state_action_values[s][a]
         self.estimated_state_action_values[s][a] += self.learning_rate * td_error
 
-class BellmanUpdater(Generic[State, Action]):
+class ValueIteration(Generic[State, Action]):
     def __init__(self, mdp: MarkovDecisionProcess[State, Action], 
                  initial_value: float = 0.0,
                  threshold: float = 1e-6,
@@ -153,3 +158,113 @@ class BellmanUpdater(Generic[State, Action]):
 
     def has_converged(self) -> bool:
         return self.iterations > 0 and self.delta <= self.threshold
+
+class GoalSelectionPolicy(Generic[State, Action]):
+    def __init__(self, mdp: MarkovDecisionProcess[State, Action]):
+        '''Initialize the policy with the MDP.'''
+        self.mdp = mdp
+        self.state_space = mdp.state_space
+
+    def sample_action(self, s : State, rng : Random = random) -> tuple[Action, Likelihood]:
+        '''Uses some policy to select which goal to select.'''
+        raise NotImplementedError
+    
+    def reset(self):
+        raise NotImplementedError
+
+class OptimalGoalPolicy(GoalSelectionPolicy[State, Action]):
+    '''Takes the optimal value function computed from value iteration to select goals.'''
+
+    def __init__(self, mdp: MarkovDecisionProcess[State, Action], value_function: dict[State, float]):
+        super().__init__(mdp)
+        # we will use the value function from value iteration to select the goal
+        self.value_function = value_function
+
+    def sample_action(self, rng: random.Random = random) -> tuple[State, float]:
+        '''Use softmax to sample a goal state based on the value function.'''
+        # Assuming 'actions' here are actually states for goal selection
+        states = list(self.value_function.keys())
+        state_values = np.array([self.value_function[state] for state in states])
+
+        # Compute softmax probabilities
+        exp_values = np.exp(state_values - np.max(state_values))  # for numerical stability
+        probabilities = exp_values / np.sum(exp_values)
+
+        # Sample a state based on these probabilities
+        selected_state = rng.choices(states, weights=probabilities)[0]
+
+        # Calculate the negative log likelihood of the selected state
+        nll = -np.log(probabilities[states.index(selected_state)])
+
+        return (selected_state, nll)
+    
+    def calc_log_lik(self, state: State) -> float:
+        '''Calculate the log likelihood of selecting a particular state.'''
+        state_values = np.array([self.value_function[s] for s in self.state_space])
+        exp_values = np.exp(state_values - np.max(state_values))
+        probabilities = exp_values / np.sum(exp_values)
+        return -np.log(probabilities[self.state_space.index(state)])
+    
+    def calc_log_likelihood_all(self) -> dict[State, float]:
+        '''Calculate the log likelihood of all states in the state space.'''
+        # get all the value for the states and convert them to probabilities
+        state_values = np.array([self.value_function[state] for state in self.state_space])
+        exp_values = np.exp(state_values - np.max(state_values))
+        probabilities = exp_values / np.sum(exp_values)
+        # print(f"Length of probabilities: {len(probabilities)}")
+        log_likelihoods = {s: -np.log(probabilities[self.state_space.index(s)]) for s in self.state_space}
+        return log_likelihoods
+    
+    def calc_log_likelihood_all_df(self) -> pd.DataFrame:
+        '''Return log lik as a dataframe.'''
+        log_likelihood = self.calc_log_likelihood_all()
+        return pd.DataFrame(log_likelihood.items(), columns=['State', 'Log Likelihood'])
+    
+    def reset(self):
+        pass
+
+class RandomGoalPolicy(GoalSelectionPolicy[State, Action]):
+    
+    def __init__(self, mdp: MarkovDecisionProcess[State, Action]):
+        super().__init__(mdp)
+    
+    def select_goal(self, s: State) -> State:
+        return random.choice(self.mdp.state_space)
+    
+class PCFGGoalPolicy(GoalSelectionPolicy[State, Action]):
+
+    def __init__(self, mdp: MarkovDecisionProcess[State, Action], p_rules, cap=10):
+        super().__init__(mdp)
+        self.NON_TERMINALS = [x[0] for x in p_rules]
+        self.PRODUCTIONS = {}
+        self.CAP = cap
+        for rule in p_rules:
+            self.PRODUCTIONS[rule[0]] = rule[1]
+
+    def generate_tree(self, logging=True, tree_str='S', log_prob=0., depth=0):
+        current_nt_indices = [tree_str.find(nt) for nt in self.NON_TERMINALS]
+        # Sample a non-terminal for generation
+        to_gen_idx = sample([idx for idx, el in enumerate(current_nt_indices) if el > -1], 1)[0]
+        to_gen_nt = self.NON_TERMINALS[to_gen_idx]
+        # Do generation
+        leaf = sample(self.PRODUCTIONS[to_gen_nt], 1)[0]
+        to_gen_tree_idx = tree_str.find(to_gen_nt)
+        tree_str = tree_str[:to_gen_tree_idx] + leaf + tree_str[(to_gen_tree_idx+1):]
+        # Update production log prob
+        log_prob += log(1/len(self.PRODUCTIONS[to_gen_nt]))
+        # Increase depth count
+        depth += 1
+
+        # Recursively rewrite string
+        if any (nt in tree_str for nt in self.NON_TERMINALS) and depth <= self.CAP:
+            return self.generate_tree(logging, tree_str, log_prob, depth)
+        elif any (nt in tree_str for nt in self.NON_TERMINALS):
+            if logging:
+                print('====DEPTH EXCEEDED!====')
+            return None
+        else:
+            if logging:
+                print(tree_str, log_prob)
+            return tree_str, log_prob
+        
+    
