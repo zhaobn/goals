@@ -31,6 +31,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
     SHAPE_TRANSITION_PROB = 0.8
 
     def __init__(self, goal : State, discount_rate):
+        '''Runs the initialization of the ShapeWorld class.'''
         self.discount_rate = discount_rate
         self.GOAL = goal
 
@@ -50,14 +51,6 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         self.action_space = tuple([a1r2, a1r3, a2r1, a2r3, a3r1, a3r2])
         self.state_action_space = tuple(product(self.state_space, self.action_space))
 
-    def get_state_space(self) -> Sequence[State]:
-        '''Return the state space.'''
-        return self.state_space
-    
-    def get_actions(self, s : State) -> Sequence[Action]:
-        '''Return the action space.'''
-        return self.action_space
-    
     def next_state_sample(
             self,
             s : State,
@@ -94,7 +87,30 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         new_state = State(*new_state_list)
 
         return new_state
-    
+
+    def reward(self, s: State, a : Action, ns : State) -> float:
+        reward = self.STEP_COST
+        if self._is_goal(ns):
+            reward += self.GOAL_REWARD
+        return reward
+
+    def is_absorbing(self, s: State) -> bool:
+        '''
+        Check to see if state is absorbing. 
+
+        For this context, the goal state is our absorbing state, and the simulation should be terminated if reached.
+
+        Returns:
+            bool: Whether the state is an absorbing state or not.
+        '''
+        is_absorbing = np.nan
+        if self.GOAL == s:
+            is_absorbing = True
+        else:
+            is_absorbing = False
+        
+        return is_absorbing
+
     def get_possible_next_states(self, s: State, a: Action) -> Sequence[State]:
         """Return the possible next states given a state and action."""
         
@@ -142,34 +158,23 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
                     return 1
             else:
                 return 0
-    
-    def reward(self, s: State, a : Action, ns : State) -> float:
-        reward = self.STEP_COST
-        if self._is_goal(ns):
-            reward += self.GOAL_REWARD
-        return reward
 
-    def is_absorbing(self, s: State) -> bool:
-        '''
-        Check to see if state is absorbing. 
-
-        For this context, the goal state is our absorbing state, and the simulation should be terminated if reached.
-
-        Returns:
-            bool: Whether the state is an absorbing state or not.
-        '''
-        is_absorbing = np.nan
-        if self.GOAL == s:
-            is_absorbing = True
-        else:
-            is_absorbing = False
-        
-        return is_absorbing
+    def calculate_distance_matrix(self):
+        num_states = len(self.state_space)
+        distance_matrix = np.zeros((num_states, num_states))
 
     def plot(self, ax=None):
         # TODO: I should implement some form of visualization to make sure that everything is working as expected.
         raise NotImplementedError
+
+    def get_state_space(self) -> Sequence[State]:
+        '''Return the state space.'''
+        return self.state_space
     
+    def get_actions(self, s : State) -> Sequence[Action]:
+        '''Return the action space.'''
+        return self.action_space
+
     # helper functions
     def _is_goal(self, ns : State):
         return self.GOAL == ns
