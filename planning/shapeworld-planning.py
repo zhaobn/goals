@@ -51,11 +51,9 @@ Action = namedtuple('Action',['actor','recipient'])
 # create an environment so we can get the state space
 discount_rate = 0.5
 goal_state = State(
-    Shape('circle', 'low', 'present'),
-    Shape('circle', 'low', 'present'),
-    Shape('circle', 'low', 'present')
-    #Shape('square', 'medium', 'not_present'),
-    #Shape('triangle', 'high', 'present')
+    Shape('circle', 'low', 'striped'),
+    Shape('circle', 'low', 'striped'),
+    Shape('circle', 'low', 'striped')
 )
 env = ShapeWorld(goal_state, discount_rate)
 

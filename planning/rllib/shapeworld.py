@@ -27,7 +27,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
     STEP_COST = -1
     SHAPE_LIST = tuple(['circle','square','triangle'])
     SHADE_LIST = tuple(['low','medium','high'])
-    TEXTURE_LIST = tuple(['present','not_present'])
+    TEXTURE_LIST = tuple(['striped','plain'])
     SHAPE_TRANSITION_PROB = 0.8
 
     def __init__(self, goal : State, discount_rate):
@@ -79,7 +79,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             shade = s[a.recipient].shade
 
         # determine recipient texture change
-        texture = 'not_present' if s[a.recipient].texture == 'present' else 'present'
+        texture = 'plain' if s[a.recipient].texture == 'striped' else 'striped'
 
         # instantiate next state
         new_state_list  = [s[0], s[1], s[2]]
@@ -122,7 +122,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             self._get_lighter_shade(s[a.recipient].shade),
             self._get_darker_shade(s[a.recipient].shade)]
         # texture always changes
-        possible_texture = ['not_present' if s[a.recipient].texture == 'present' else 'present']
+        possible_texture = ['plain' if s[a.recipient].texture == 'striped' else 'striped']
         possible_states = set()
 
         # create all possible next states by replacing recipient state
@@ -150,9 +150,9 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
                 return self.SHAPE_TRANSITION_PROB
             elif s[a.recipient].shade == ns[a.recipient].shade:
                 # determine recipient texture change
-                if s[a.recipient].texture == 'present' and ns[a.recipient].texture == 'not_present':
+                if s[a.recipient].texture == 'striped' and ns[a.recipient].texture == 'plain':
                     return self.SHAPE_TRANSITION_PROB
-                elif s[a.recipient].texture == 'not_present' and ns[a.recipient].texture == 'present':
+                elif s[a.recipient].texture == 'plain' and ns[a.recipient].texture == 'striped':
                     return self.SHAPE_TRANSITION_PROB
                 elif s[a.recipient].texture == ns[a.recipient].texture:
                     return 1
@@ -207,7 +207,7 @@ class GoalWorld(MarkovDecisionProcess[State, Action]):
     STEP_COST = -1
     SHAPE_LIST = tuple(['circle','square','triangle'])
     SHADE_LIST = tuple(['low','medium','high'])
-    TEXTURE_LIST = tuple(['present','not_present'])
+    TEXTURE_LIST = tuple(['striped','plain'])
 
     def __init__(self):
 

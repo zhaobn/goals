@@ -56,13 +56,13 @@ class GymWrapper(gym.Env):
         self.rng = random.Random(seed)
         # TODO: fix this to where the starts really are random
         '''
-        shape1 = Shape(sides='circle', shade='medium', texture='present')
-        shape2 = Shape(sides='square', shade='low', texture='present')
-        shape3 = Shape(sides='triangle', shade='high', texture='present')
+        shape1 = Shape(sides='circle', shade='medium', texture='striped')
+        shape2 = Shape(sides='square', shade='low', texture='striped')
+        shape3 = Shape(sides='triangle', shade='high', texture='striped')
         '''
         
         # using this starting state to make sure that it's easy to achieve the goal
-        shape1 = Shape(sides='circle', shade='medium', texture='not_present')
+        shape1 = Shape(sides='circle', shade='medium', texture='plain')
 
         s0 = State(shape1, shape1, shape1)
         self.current_state = s0 #self.mdp.initial_state_dist().sample(rng=self.rng)
