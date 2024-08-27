@@ -13,12 +13,12 @@
 #SBATCH --cpus-per-task=4
 
 # Number of subjects to simulate
-#SBATCH --array=0-832  
+#SBATCH --array=0-2500
 # --------------------------------------------------------------------------------
 #5832 = total states
 module load anacondapy/2024.02 # load the system module for conda
 conda activate goals-concepts # activate the conda environment for this project
 # Calculate the actual task ID
-ACTUAL_TASK_ID=$(($SLURM_ARRAY_TASK_ID + 5002))
+ACTUAL_TASK_ID=$(($SLURM_ARRAY_TASK_ID + 0))
 python value_iteration.py $ACTUAL_TASK_ID
 
