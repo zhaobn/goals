@@ -13,7 +13,6 @@ Summary:
 
 # Custom class imports
 from rllib.shapeworld import ShapeWorld
-from rllib.tools import isclose
 from rllib.mdp import MarkovDecisionProcess, MDPPolicy, QLearner, ValueIteration
 # from rllib.distributions import DiscreteDistribution
 # from rllib.gymwrap import GymWrapper
@@ -42,6 +41,9 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from matplotlib import patheffects
 import sys
+
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
 
 # Define the needed shape objects
 Shape = namedtuple('Shape',['sides', 'shade', 'texture'])
