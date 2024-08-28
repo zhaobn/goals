@@ -33,6 +33,7 @@ import random
 from random import Random
 from collections import defaultdict, Counter
 from tqdm import tqdm
+import time
 #import os
 
 # make sure working directory is as expected
@@ -42,6 +43,9 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from matplotlib import patheffects
 import sys
+
+# Start the timer
+start_time = time.time()
 
 def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
     return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
@@ -56,7 +60,7 @@ Action = namedtuple('Action',['actor','recipient'])
 ##################################################
 
 # Create shapeworld object for indexing goal state
-discount_rate = 0.5
+discount_rate = 0.1
 temporary_goal_state = State(
     Shape('circle', 'low', 'present'),
     Shape('circle', 'low', 'present'),
@@ -81,5 +85,10 @@ value_function = value_it.get_value_function()
 filename = f'./value-iteration-results/value_function_goal_{goal_index}.pkl'
 pd.to_pickle((value_function, goal_state), filename) # note the ordered pair formatting
 print(f"Value function saved as {filename}")
+
+# End the timer and print the total runtime
+end_time = time.time()
+total_runtime = end_time - start_time
+print(f"Total runtime: {total_runtime:.2f} seconds")
 
 ##################################################

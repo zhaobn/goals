@@ -167,8 +167,8 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
                 # texture must always change
                 elif s[a.recipient].texture == ns[a.recipient].texture:
                     return 0
-            else:
-                return 0
+            return 0
+            
 
     def plot(self, ax=None):
         # TODO: I should implement some form of visualization to make sure that everything is working as expected.
