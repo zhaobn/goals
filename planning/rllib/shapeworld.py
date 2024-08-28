@@ -20,14 +20,13 @@ a2r3 = Action(1, 2)
 a3r1 = Action(2, 0)
 a3r2 = Action(2, 1)
 
-
 class ShapeWorld(MarkovDecisionProcess[State, Action]):
     GOAL = None
     GOAL_REWARD = 100 # we let this be zero because of averaging across Q-tables we do later
     STEP_COST = -1
     SHAPE_LIST = tuple(['circle','square','triangle'])
     SHADE_LIST = tuple(['low','medium','high'])
-    TEXTURE_LIST = tuple(['striped','plain'])
+    TEXTURE_LIST = tuple(['striped','plain','dots'])
     SHAPE_TRANSITION_PROB = 0.8
 
     def __init__(self, goal : State, discount_rate):
@@ -78,8 +77,13 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         else:
             shade = s[a.recipient].shade
 
-        # determine recipient texture change
-        texture = 'plain' if s[a.recipient].texture == 'striped' else 'striped'
+        # determine recipient texture change alternates deterministically
+        if s[a.recipient].texture == 'plain':
+            texture = 'striped'
+        if s[a.recipient].texture == 'striped':
+            texture = 'dots'
+        if s[a.recipient].texture == 'dots':
+            texture = 'plain'
 
         # instantiate next state
         new_state_list  = [s[0], s[1], s[2]]
@@ -138,30 +142,33 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         return list(possible_states)
     
     def transition_probability(self, s: State, a: Action, ns: State) -> float:
-        """Return the transition probability from state s to state ns given action a."""
+        """
+        Return the transition probability from state s to state ns given action a.
+        Only valid for valid possible next states. 
+        """
         # determine if recipient shape changes
         if ns[a.recipient].sides != s[a.actor].sides:
             return 1 - self.SHAPE_TRANSITION_PROB
         else:
-            # determine if the recipient shade changes
+            # if the recipient shade changes, it's a the same probability as the shape transition
             if self._is_darker(s[a.actor].shade, s[a.recipient].shade) and ns[a.recipient].shade == self._get_darker_shade(s[a.recipient].shade):
                 return self.SHAPE_TRANSITION_PROB
             elif self._is_lighter(s[a.actor].shade, s[a.recipient].shade) and ns[a.recipient].shade == self._get_lighter_shade(s[a.recipient].shade):
                 return self.SHAPE_TRANSITION_PROB
+            # if the shade doesn't change, the texture must change
             elif s[a.recipient].shade == ns[a.recipient].shade:
                 # determine recipient texture change
-                if s[a.recipient].texture == 'striped' and ns[a.recipient].texture == 'plain':
+                if s[a.recipient].texture == 'plain' and ns[a.recipient].texture == 'striped':
                     return self.SHAPE_TRANSITION_PROB
-                elif s[a.recipient].texture == 'plain' and ns[a.recipient].texture == 'striped':
+                elif s[a.recipient].texture == 'striped' and ns[a.recipient].texture == 'dots':
                     return self.SHAPE_TRANSITION_PROB
+                elif s[a.recipient].texture == 'dots' and ns[a.recipient].texture == 'plain':
+                    return self.SHAPE_TRANSITION_PROB
+                # texture must always change
                 elif s[a.recipient].texture == ns[a.recipient].texture:
-                    return 1
+                    return 0
             else:
                 return 0
-
-    def calculate_distance_matrix(self):
-        num_states = len(self.state_space)
-        distance_matrix = np.zeros((num_states, num_states))
 
     def plot(self, ax=None):
         # TODO: I should implement some form of visualization to make sure that everything is working as expected.
@@ -200,32 +207,4 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             return shade
         else:
             return self.SHADE_LIST[current_idx - 1]
-
-
-class GoalWorld(MarkovDecisionProcess[State, Action]):
-    GOAL_REWARD = 100 # we let this be zero because of averaging across Q-tables we do later
-    STEP_COST = -1
-    SHAPE_LIST = tuple(['circle','square','triangle'])
-    SHADE_LIST = tuple(['low','medium','high'])
-    TEXTURE_LIST = tuple(['striped','plain'])
-
-    def __init__(self):
-
-        # set up shapeworld shape space
-        shape_space : Sequence[Shape] = tuple(
-            Shape(sides, shade, texture) 
-                for (sides, shade, texture) 
-                    in product(self.SHAPE_LIST,self.SHADE_LIST,self.TEXTURE_LIST)
-        )
-
-        # set up state space
-        self.state_space : Sequence[State] = tuple(
-            State(shape1, shape2, shape3) for(shape1, shape2, shape3) in product(shape_space, shape_space, shape_space)
-        )
-
-        self.num_states = len(self.state_space)
-
-    def get_state_space(self) -> Sequence[State]:
-        '''Return the state space.'''
-        return self.state_space
     
