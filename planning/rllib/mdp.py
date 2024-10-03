@@ -134,6 +134,7 @@ class ValueIteration(Generic[State, Action]):
                         for ns in self.mdp.get_possible_next_states(s, a):
                             reward = self.mdp.reward(s, a, ns)
                             prob = self.mdp.transition_probability(s, a, ns)
+                            #(f"Value: {self.value_function[ns]}, Prob: {prob}, Reward: {reward}")
                             q_value += prob * (reward + self.mdp.discount_rate * self.value_function[ns])
                         q_values.append(q_value)
 
