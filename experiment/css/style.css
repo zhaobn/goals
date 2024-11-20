@@ -1,11 +1,48 @@
+body {
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove default margin */
+}
+
+.container {
+  display: flex; /* Use flexbox to align workspaces side by side */
+  justify-content: center; /* Center the workspaces horizontally */
+  align-items: center; /* Center the workspaces vertically */
+}
+
+.goal-display {
+  height: 40vh; /* Match the height of the existing workspace */
+  width: 50vh; /* Set a width for the new workspace */
+  border: 1px black solid; /* Add a border for visibility */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+  margin-right: 20px; /* Add space between the new workspace and the existing one */
+  margin-left: 20px;
+  border-radius: 15px; /* Set the border radius for rounded corners */
+}
 
 .workspace {
-  height: 400px;
-  width: 600px;
+  height: 80vh; /* Change to 100% of the viewport height */
+  width: 50vh;
   border: 1px black solid;
   margin: auto;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+  border-radius: 15px; /* Set the border radius for rounded corners */
+}
+
+.current-state {
+  font-size: 24px; /* Adjust the font size as needed */
+  text-align: center; /* Center the text */
+  margin-bottom: 10px; /* Space between the text and shapes */
+  width: 100%; /* Ensure it takes the full width of the container */
+  font-family: 'Helvetica', sans-serif;
 }
 
 .innerworkspace-top {
@@ -34,6 +71,26 @@
   justify-content: center;
   /* border: solid 5px gold; */
 }
+
+.red-button {
+  height: 100px; /* Set the height */
+  width: 100px; /* Set the width */
+  border-radius: 50%; /* Make it circular */
+  background-color: red; /* Set the background color to red */
+  color: white; /* Set the text color to white */
+  border: none; /* Remove the default border */
+  font-size: 16px; /* Adjust the font size */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  display: flex; /* Use flexbox to center text */
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally */
+  transition: background-color 0.3s; /* Add a transition effect */
+}
+
+.red-button:hover {
+  background-color: darkred; /* Change color on hover */
+}
+
 .square-obj {
   height: 140px;
   width: 140px;
@@ -41,12 +98,14 @@
   /* background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, yellow); */
   /* background-size: 50px 50px; */
 }
+
 .circle-obj {
   height: 142px;
   width: 142px;
   border-radius: 50%;
   background-color: red;
 }
+
 .triangle-obj {
   width: 0;
   border-bottom: 140px solid blue;

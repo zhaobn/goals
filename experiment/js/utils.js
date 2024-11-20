@@ -1,5 +1,8 @@
 
-/* Custom wrappers */
+/**
+ * Get the element ID.
+ *
+ */
 function getEl(elementID) {
   let el = document.getElementById(elementID)
   return el
@@ -13,12 +16,14 @@ function createCustomElement (id, className, type = 'div') {
   if (id.length > 0) element.setAttribute("id", id);
   return element;
 }
+
 function createText(h = "h1", text = 'hello') {
   let element = document.createElement(h);
   let tx = document.createTextNode(text);
   element.append(tx);
   return(element)
 }
+
 function createBtn (btnId, text = "Button", className = "task-button", on = true) {
   let btn = createCustomElement("button", className, btnId);
   btn.disabled = !on;
@@ -26,12 +31,12 @@ function createBtn (btnId, text = "Button", className = "task-button", on = true
   return(btn)
 }
 
-
 function setAttributes(el, attrs) {
   for(var key in attrs) {
     el.setAttribute(key, attrs[key]);
   }
 }
+
 function sampleFromList(arr, n=1, replace=true) {
   if (n==1) {
     return (arr[Math.floor(Math.random()*arr.length)])

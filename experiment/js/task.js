@@ -120,3 +120,29 @@ function safeColorChange(color, direction) {
 
   return (colorInt.toString())
 }
+
+// Function to create fixed shapes in the new workspace
+function createFixedShapes() {
+  const fixedShapes = [
+      { id: 'fixed-obj-a', shape: 'square', color: '1', pattern: 'plain' },
+      { id: 'fixed-obj-b', shape: 'circle', color: '2', pattern: 'stripe' },
+      { id: 'fixed-obj-c', shape: 'triangle', color: '3', pattern: 'plain' }
+  ];
+
+  fixedShapes.forEach(({ id, shape, color, pattern }) => {
+      const shapeElement = makeShape(id, shape, color, pattern);
+      getEl('fixed-holder-' + id.split('-')[2]).append(shapeElement);
+  });
+}
+
+// Call the function to create fixed shapes
+createFixedShapes();
+
+// Function to be executed when the button is clicked
+function abandonGoal() {
+  // Your code logic here
+  console.log("Goal abandoned!"); // Example action
+}
+
+// Add event listener to the button
+document.getElementById('large-red-button').addEventListener('click', abandonGoal);
