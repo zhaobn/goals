@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Decision Making Experiment</title>
+
+  <!-- Load libraries -->
+  <!-- <script src="https://unpkg.com/jquery"></script> -->
+  <script src="../static/lib/jspsych-7.2.1/jspsych.js"></script>
+
+  <!-- Load jsPsych plug-ins -->
+  <script src="../static/lib/jspsych-7.2.1/plugins/plugin-survey-likert.js"></script>
+  <script src="../static/lib/jspsych-7.2.1/plugins/plugin-goal-builder.js"></script>
+  <script src="../static/lib/jspsych-7.2.1/plugins/plugin-goal-pursuit.js"></script>
+  <script src="../static/lib/jspsych-7.2.1/plugins/plugin-fullscreen.js"></script>
+
+  <!-- Load CSS styles -->
+  <link href="../static/lib/jspsych-7.2.1/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+</head>
+<body></body>
+<script>
+
+  // Display alert message on back/refresh.
+  // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
+  function verify_unload(e){
+    e.preventDefault();
+    (e || window.event).returnValue = null;
+    incomplete_save();  // Saves incomplete data.
+    return null;
+  };
+  window.addEventListener("beforeunload", verify_unload);
+
+  // Define example survey.
+  var likert_page = {
+    type: jsPsychSurveyLikert,
+    questions: [{prompt: "Are you seeing something right now?", labels: ["Yes", "No"]}],
+    on_start: function(data) {
+      pass_message('message to pass to nivturk');
+    }
+  };
+
+  var goal_builder = {
+    type: jsPsychBuilder,
+    instrunction: "Drag and drop shapes to create your goal."
+  }
+
+  var goal_pursuit = {
+    type: jsPsychGoalPursuit,
+    instrunction: "Drag and drop shapes to create your goal."
+  }
+
+  // Define global variables.
+  var low_quality = false;
+
+  // Define the number of iterations
+  const NUM_ITERATIONS = 1;
+
+  // Create a single iteration
+  const iteration = {
+    timeline: [
+      {
+        type: jsPsychBuilder,
+        instruction: "Drag and drop shapes to create your goal.",
+        participant_id: "{{workerId}}"
+      },
+      {
+        type: jsPsychGoalPursuit,
+        instruction: "Try to achieve your goal by selecting shapes to interact.",
+        participant_id: "{{workerId}}",
+        on_start: function(trial) {
+          const goalData = jsPsych.data.get().last(1).values()[0].goal;
+          trial.goalState = goalData;
+        }
+      }
+    ],
+    loop_function: function(data) {
+      // Get the last trial's data (goal pursuit)
+      const lastTrial = data.values().slice(-1)[0];
+      // If goal was achieved, move to next iteration
+      return false;  // Return false to end the loop and move to next iteration
+    },
+    iterations: NUM_ITERATIONS
+  };
+
+  // Add fullscreen trial
+  const enterFullscreen = {
+    type: jsPsychFullscreen,
+    fullscreen_mode: true,
+    message: '<p>The experiment will switch to full screen mode when you press the button below</p>',
+    button_label: 'Enter fullscreen'
+  };
+
+  // Initialize timeline with fullscreen first
+  var timeline = [
+    enterFullscreen,  // Add fullscreen trial at the start
+    {
+      timeline: [iteration],
+      repetitions: NUM_ITERATIONS,
+      data: {
+        phase: 'goal_iteration'
+      }
+    }
+  ];
+
+  // Initialize jsPsych.
+  var jsPsych = initJsPsych({
+    on_finish: function() {
+        // Remove requirement to verify redirect
+        window.removeEventListener("beforeunload", verify_unload);
+
+        // Add interactions to the data variable
+        var interaction_data = jsPsych.data.getInteractionData();
+        jsPsych.data.get().addToLast({interactions: interaction_data.json()});
+
+        // DEBUGGING: Display data (remove these lines for production)
+        const allData = jsPsych.data.get().values();
+        console.log('All saved data:', allData);
+        
+        // Create a formatted display of the data
+        const dataDisplay = document.createElement('div');
+        dataDisplay.innerHTML = `
+            <h2>Saved Data (Remove this section before deploying)</h2>
+            <pre style="background: #f5f5f5; padding: 10px; overflow: auto; max-height: 400px;">
+                ${JSON.stringify(allData, null, 2)}
+            </pre>
+        `;
+        document.body.appendChild(dataDisplay);
+        // END DEBUGGING SECTION
+
+        if (low_quality) {
+            // Save rejected dataset to disk.
+            redirect_reject("1005");
+        } else {
+            // Save complete dataset to disk.
+            redirect_success("{{workerId}}", "{{assignmentId}}", "{{hitId}}", "{{code_success}}");
+        }
+    },
+    on_trial_start: function() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        }
+    }
+  });
+
+  // Execute timeline.
+  jsPsych.run(timeline);
+
+</script>
+<script>
+
+  // Pass message from jsPsych to NivTurk
+  function pass_message(msg) {
+
+    $.ajax({
+      url: "/experiment",
+      method: 'POST',
+      data: JSON.stringify(msg),
+      contentType: "application/json; charset=utf-8",
+    }).done(function(data, textStatus, jqXHR) {
+      // do nothing on success
+    }).fail(function(error) {
+      console.log(error);
+    });
+
+  }
+
+  // Save an incomplete dataset.
+  function incomplete_save() {
+
+    $.ajax({
+      url: "/incomplete_save",
+      method: 'POST',
+      data: JSON.stringify(jsPsych.data.get().json()),
+      contentType: "application/json; charset=utf-8",
+    }).done(function(data, textStatus, jqXHR) {
+      // do nothing
+    }).fail(function(error) {
+      // do nothing
+    });
+
+  }
+
+  // Successful completion of experiment: redirect with completion code.
+  function redirect_success(workerId, assignmentId, hitId, code_success) {
+
+    // Concatenate metadata into complete URL (returned on success).
+    var url = "/complete?completion_code=" + code_success;
+
+    $.ajax({
+      url: "/redirect_success",
+      method: 'POST',
+      data: JSON.stringify(jsPsych.data.get().json()),
+      contentType: "application/json; charset=utf-8",
+    }).done(function(data, textStatus, jqXHR) {
+      window.location.replace(url);
+    }).fail(function(error) {
+      window.location.replace(url);
+    });
+
+  }
+
+  // Unsuccessful completion of experiment: redirect with decoy code.
+  function redirect_reject(error) {
+
+    // Concatenate metadata into complete URL (returned on reject).
+    var url = "/error/" + error;
+
+    $.ajax({
+      url: "/redirect_reject",
+      method: 'POST',
+      data: JSON.stringify(jsPsych.data.get().json()),
+      contentType: "application/json; charset=utf-8",
+    }).done(function(data, textStatus, jqXHR) {
+      window.location.replace(url);
+    }).fail(function(error) {
+      window.location.replace(url);
+    });
+  }
+
+  // Unsuccessful completion of experiment: redirect to error page.
+  function redirect_error(error) {
+
+    // error is the error number to redirect to.
+    var url = "/error/" + error;
+
+    $.ajax({
+      url: "/redirect_error",
+      method: 'POST',
+      data: JSON.stringify(jsPsych.data.get().json()),
+      contentType: "application/json; charset=utf-8",
+    }).done(function(data, textStatus, jqXHR) {
+      window.location.replace(url);
+    }).fail(function(error) {
+      window.location.replace(url);
+    });
+
+  }
+
+</script>
+</html>

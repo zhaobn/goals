@@ -1,0 +1,2795 @@
+[
+    {
+      "success": true,
+      "trial_type": "fullscreen",
+      "trial_index": 0,
+      "time_elapsed": 2945,
+      "internal_node_id": "0.0-0.0"
+    },
+    {
+      "participant_id": "{{workerId}}",
+      "trial_type": "build-goal",
+      "trial_index": 1,
+      "goal_trial_number": 0,
+      "time_elapsed": 2949,
+      "timestamp": "2025-01-04T00:20:31.400Z",
+      "menu": [
+        [
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-10"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-23"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-13"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-15"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-14"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-26"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-6"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-5"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-7"
+          }
+        ],
+        [
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-22"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-8"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-9"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-4"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-3"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-2"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-11"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-20"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-25"
+          }
+        ],
+        [
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-16"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-12"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-17"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-18"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-1"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-24"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-0"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-21"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-19"
+          }
+        ]
+      ],
+      "action_number": 0,
+      "shape_selected": null,
+      "slot_filled": null,
+      "final_goal": null,
+      "completion_time": 0,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-0.0"
+    },
+    {
+      "participant_id": "{{workerId}}",
+      "trial_type": "build-goal",
+      "trial_index": 1,
+      "goal_trial_number": 0,
+      "time_elapsed": 5862,
+      "timestamp": "2025-01-04T00:20:34.313Z",
+      "menu": [
+        [
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-10"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-23"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-13"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-15"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-14"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-26"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-6"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-5"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-7"
+          }
+        ],
+        [
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-22"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-8"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-9"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-4"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-3"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-2"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-11"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-20"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-25"
+          }
+        ],
+        [
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-16"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-12"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-17"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-18"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-1"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-24"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-0"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-21"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-19"
+          }
+        ]
+      ],
+      "action_number": 1,
+      "shape_selected": {
+        "id": "shape-21",
+        "shape": "triangle",
+        "texture": "striped",
+        "shade": "1"
+      },
+      "menu_position": {
+        "row": 2,
+        "column": 7
+      },
+      "slot_filled": 1,
+      "shape_removed": false,
+      "final_goal": null,
+      "completion_time": 2915,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-0.0"
+    },
+    {
+      "participant_id": "{{workerId}}",
+      "trial_type": "build-goal",
+      "trial_index": 1,
+      "goal_trial_number": 0,
+      "time_elapsed": 7179,
+      "timestamp": "2025-01-04T00:20:35.629Z",
+      "menu": [
+        [
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-10"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-23"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-13"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-15"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-14"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-26"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-6"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-5"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-7"
+          }
+        ],
+        [
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-22"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-8"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-9"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-4"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-3"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-2"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-11"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-20"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-25"
+          }
+        ],
+        [
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-16"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-12"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-17"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-18"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-1"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-24"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-0"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-21"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-19"
+          }
+        ]
+      ],
+      "action_number": 2,
+      "shape_selected": {
+        "id": "shape-21",
+        "shape": "triangle",
+        "texture": "striped",
+        "shade": "1"
+      },
+      "menu_position": {
+        "row": 2,
+        "column": 7
+      },
+      "slot_filled": 2,
+      "shape_removed": false,
+      "final_goal": null,
+      "completion_time": 4231,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-0.0"
+    },
+    {
+      "participant_id": "{{workerId}}",
+      "trial_type": "build-goal",
+      "trial_index": 1,
+      "goal_trial_number": 0,
+      "time_elapsed": 8512,
+      "timestamp": "2025-01-04T00:20:36.963Z",
+      "menu": [
+        [
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-10"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-23"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-13"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-15"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-14"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-26"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-6"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-5"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-7"
+          }
+        ],
+        [
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-22"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-8"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-9"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-4"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-3"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-2"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-11"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-20"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-25"
+          }
+        ],
+        [
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-16"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-12"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-17"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-18"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-1"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-24"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-0"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-21"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-19"
+          }
+        ]
+      ],
+      "action_number": 3,
+      "shape_selected": {
+        "id": "shape-21",
+        "shape": "triangle",
+        "texture": "striped",
+        "shade": "1"
+      },
+      "menu_position": {
+        "row": 2,
+        "column": 7
+      },
+      "slot_filled": 3,
+      "shape_removed": false,
+      "final_goal": null,
+      "completion_time": 5565,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-0.0"
+    },
+    {
+      "participant_id": "{{workerId}}",
+      "trial_type": "build-goal",
+      "trial_index": 1,
+      "goal_trial_number": 0,
+      "time_elapsed": 9342,
+      "timestamp": "2025-01-04T00:20:37.793Z",
+      "menu": [
+        [
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-10"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-23"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-13"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-15"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-14"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-26"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-6"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "3",
+            "id": "shape-5"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-7"
+          }
+        ],
+        [
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-22"
+          },
+          {
+            "shape": "circle",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-8"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-9"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "2",
+            "id": "shape-4"
+          },
+          {
+            "shape": "circle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-3"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-2"
+          },
+          {
+            "shape": "square",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-11"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "3",
+            "id": "shape-20"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-25"
+          }
+        ],
+        [
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "2",
+            "id": "shape-16"
+          },
+          {
+            "shape": "square",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-12"
+          },
+          {
+            "shape": "square",
+            "texture": "dotted",
+            "shade": "3",
+            "id": "shape-17"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-18"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-1"
+          },
+          {
+            "shape": "triangle",
+            "texture": "dotted",
+            "shade": "1",
+            "id": "shape-24"
+          },
+          {
+            "shape": "circle",
+            "texture": "none",
+            "shade": "1",
+            "id": "shape-0"
+          },
+          {
+            "shape": "triangle",
+            "texture": "striped",
+            "shade": "1",
+            "id": "shape-21"
+          },
+          {
+            "shape": "triangle",
+            "texture": "none",
+            "shade": "2",
+            "id": "shape-19"
+          }
+        ]
+      ],
+      "action_number": 4,
+      "shape_selected": null,
+      "slot_filled": null,
+      "shape_removed": false,
+      "final_goal": [
+        {
+          "shape": "triangle",
+          "shade": "1",
+          "texture": "striped"
+        },
+        {
+          "shape": "triangle",
+          "shade": "1",
+          "texture": "striped"
+        },
+        {
+          "shape": "triangle",
+          "shade": "1",
+          "texture": "striped"
+        }
+      ],
+      "menu_position": {
+        "row": null,
+        "column": null
+      },
+      "completion_time": 6395,
+      "goal": [
+        {
+          "shape": "triangle",
+          "shade": "1",
+          "texture": "striped"
+        },
+        {
+          "shape": "triangle",
+          "shade": "1",
+          "texture": "striped"
+        },
+        {
+          "shape": "triangle",
+          "shade": "1",
+          "texture": "striped"
+        }
+      ],
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-0.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 12182,
+      "timestamp": "2025-01-04T00:20:40.633Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "b",
+      "recipient_shape": "square",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "square",
+          "color": "1",
+          "pattern": "plain"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "circle",
+          "color": "2",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 1,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 2838,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 14520,
+      "timestamp": "2025-01-04T00:20:42.971Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "circle",
+      "recipient_color": "2",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "circle",
+          "color": "2",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 2,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 5176,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 16560,
+      "timestamp": "2025-01-04T00:20:45.011Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "b",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 3,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 7216,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 18674,
+      "timestamp": "2025-01-04T00:20:47.124Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 4,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 9329,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 20691,
+      "timestamp": "2025-01-04T00:20:49.141Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "b",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 5,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 11346,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 22698,
+      "timestamp": "2025-01-04T00:20:51.148Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "b",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 6,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 13353,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 24727,
+      "timestamp": "2025-01-04T00:20:53.178Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 7,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 15383,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 26772,
+      "timestamp": "2025-01-04T00:20:55.223Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "b",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 8,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 17428,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 28748,
+      "timestamp": "2025-01-04T00:20:57.199Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 9,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 19404,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 31553,
+      "timestamp": "2025-01-04T00:21:00.004Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "b",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 10,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 22209,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 34597,
+      "timestamp": "2025-01-04T00:21:03.047Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "b",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "striped",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 11,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 25252,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 37288,
+      "timestamp": "2025-01-04T00:21:05.738Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 12,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 27943,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 40340,
+      "timestamp": "2025-01-04T00:21:08.790Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 13,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 30995,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 43170,
+      "timestamp": "2025-01-04T00:21:11.620Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 14,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 33825,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 45894,
+      "timestamp": "2025-01-04T00:21:14.345Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 15,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 36550,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 48366,
+      "timestamp": "2025-01-04T00:21:16.817Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 16,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 39022,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 50924,
+      "timestamp": "2025-01-04T00:21:19.374Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 17,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 41579,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 53454,
+      "timestamp": "2025-01-04T00:21:21.904Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 18,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 44109,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 55924,
+      "timestamp": "2025-01-04T00:21:24.375Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "a",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "dotted",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 19,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 46580,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 58221,
+      "timestamp": "2025-01-04T00:21:26.671Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "b",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "dotted",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "plain",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "dotted"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 20,
+      "goal_achieved": false,
+      "abandoned": false,
+      "completion_time": 48876,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "goal_trial_number": 1,
+      "time_elapsed": 60804,
+      "timestamp": "2025-01-04T00:21:29.255Z",
+      "participant_id": "{{workerId}}",
+      "actor_id": "b",
+      "actor_shape": "star",
+      "actor_color": "1",
+      "recipient_id": "c",
+      "recipient_shape": "star",
+      "recipient_color": "1",
+      "recipient_pattern": "plain",
+      "resulting_shape": "star",
+      "resulting_color": "1",
+      "resulting_pattern": "striped",
+      "state_before": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "plain"
+        }
+      },
+      "state_after": {
+        "a": {
+          "id": "demo-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "demo-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "demo-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "goal_state": {
+        "a": {
+          "id": "fixed-obj-a",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "b": {
+          "id": "fixed-obj-b",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        },
+        "c": {
+          "id": "fixed-obj-c",
+          "shape": "star",
+          "color": "1",
+          "pattern": "striped"
+        }
+      },
+      "action_number": 1,
+      "interaction_number": 21,
+      "goal_achieved": true,
+      "abandoned": false,
+      "completion_time": 51460,
+      "phase": "goal_iteration",
+      "internal_node_id": "0.0-1.0-0.0-1.0"
+    },
+    {
+      "phase": "goal_iteration",
+      "trial_type": "goal-pursuit",
+      "trial_index": 2,
+      "time_elapsed": 73088,
+      "internal_node_id": "0.0-1.0-0.0-1.0",
+      "interactions": "[{\"event\":\"fullscreenenter\",\"trial\":0,\"time\":1962}]"
+    }
+  ]
