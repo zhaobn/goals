@@ -106,7 +106,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
     # Transition probability constants
     SHAPE_TRANSITION_PROB = 0.9
     TEXTURE_TRANSITION_PROB = 1.0
-    SHADE_CYCLE_PROB = 0.1  # when shades are the same, 20% chance to cycle around for boundary shades
+    SHADE_CYCLE_PROB = 0.1  # you changed this to 10%
     
     def __init__(self, goal: State, discount_rate: float):
         '''Initialize the ShapeWorld with a goal state and discount rate.'''
@@ -264,14 +264,14 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             # Same shade case
             if recipient_shape.shade in ['low', 'high']:
                 possible_shades = [
-                    recipient_shape.shade,  # 80% chance stay same
-                    'high' if recipient_shape.shade == 'low' else 'low'  # 20% chance to flip
+                    recipient_shape.shade,  # 90% chance stay same (not 80%)
+                    'high' if recipient_shape.shade == 'low' else 'low'  # 10% chance to flip (not 20%)
                 ]
             elif recipient_shape.shade == 'medium':
                 possible_shades = [
-                    'medium',  # 80% chance stay same
-                    'low',    # 10% chance
-                    'high'    # 10% chance
+                    'medium',  # 90% chance stay same (not 80%)
+                    'low',    # 5% chance (not 10%)
+                    'high'    # 5% chance (not 10%)
                 ]
         else:
             # Different shade case - move one step towards actor's shade

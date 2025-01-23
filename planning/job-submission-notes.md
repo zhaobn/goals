@@ -1,27 +1,34 @@
-* Unsubmitted
-* Job ID: 
-* 0-500
+* Status: COMPLETED
+* Job ID: 350583
+* 0-2500
 
-* Unsubmitted
-* Job ID: 
-* 501-1000
+* Status: COMPLETED
+* Job ID: 353161
+* 2501-5000
 
-* Unsubmitted
-* Job ID: 
-* 1001-1500
+* Status: COMPLETED
+* Job ID: 355662
+* 5001-7500
 
-* Unsubmitted
-* Job ID: 
-* 1501-2000
+* Status: COMPLETED
+* Job ID: 357117
+* 7501-10000
 
-* Unsubmitted
-* Job ID: 
-* 2001-2500
+* Status: COMPLETED
+* Job ID: 360151
+* 10001-12500
 
-* Unsubmitted
-* Job ID: 
-* 2501-5001
+* Status: COMPLETED
+* Job ID: 360493
+* 12501-15000
 
-* Unsubmitted
-* Job ID: 
-* 5002-5832
+* Status: COMPLETED
+* Job ID: 361001
+* 15001-17500
+
+* Status: COMPLETED
+* Job ID: 364165
+* 17501-19683
+
+
+rsync -av --progress jbbyers@spock.princeton.edu:/jukebox/niv/branson/goals/planning/value-iteration-results/ /Users/jbbyers/Research/Goals\ as\ Concepts/goals/planning/value-iteration-results
