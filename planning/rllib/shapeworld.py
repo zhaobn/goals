@@ -104,9 +104,9 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
     TEXTURE_LIST = ('plain', 'stripes', 'dots')
     
     # Transition probability constants
-    SHAPE_TRANSITION_PROB = 0.8
+    SHAPE_TRANSITION_PROB = 0.9
     TEXTURE_TRANSITION_PROB = 1.0
-    SHADE_CYCLE_PROB = 0.2  # when shades are the same, 20% chance to cycle around for boundary shades
+    SHADE_CYCLE_PROB = 0.1  # when shades are the same, 20% chance to cycle around for boundary shades
     
     def __init__(self, goal: State, discount_rate: float):
         '''Initialize the ShapeWorld with a goal state and discount rate.'''
