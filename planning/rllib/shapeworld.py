@@ -143,7 +143,7 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             Action(actor=3, recipient=2),  # a3r2
         ]
 
-    def next_state_sample(self, s: State, a: Action, rng: random.Random = random) -> State:
+    def next_state_sample(self, s: State, a: Action, rng: Random = random) -> State:
         '''
         Given a state and action, return a possible next state.
         
@@ -176,7 +176,11 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             # Same shade case
             if recipient_shape.shade in ['low', 'high']:
                 if rng.random() < self.SHADE_CYCLE_PROB:
-                    shade = 'high' if recipient_shape.shade == 'low' else 'low'
+                    # Equal chance to cycle around or go to medium
+                    if rng.random() < 0.5:
+                        shade = 'high' if recipient_shape.shade == 'low' else 'low'
+                    else:
+                        shade = 'medium'
                 else:
                     shade = recipient_shape.shade
             elif recipient_shape.shade == 'medium':
@@ -264,14 +268,15 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
             # Same shade case
             if recipient_shape.shade in ['low', 'high']:
                 possible_shades = [
-                    recipient_shape.shade,  # 90% chance stay same (not 80%)
-                    'high' if recipient_shape.shade == 'low' else 'low'  # 10% chance to flip (not 20%)
+                    recipient_shape.shade,  # 90% chance stay same
+                    'high' if recipient_shape.shade == 'low' else 'low',  # 5% chance to cycle
+                    'medium'  # 5% chance to go to medium
                 ]
             elif recipient_shape.shade == 'medium':
                 possible_shades = [
-                    'medium',  # 90% chance stay same (not 80%)
-                    'low',    # 5% chance (not 10%)
-                    'high'    # 5% chance (not 10%)
+                    'medium',  # 90% chance stay same
+                    'low',    # 5% chance
+                    'high'    # 5% chance
                 ]
         else:
             # Different shade case - move one step towards actor's shade
