@@ -1,0 +1,26 @@
+.jspsych-content-wrapper {
+    flex: 1 1 100%;
+    width: 100%;
+}
+
+.game-container {
+    margin: auto;
+    width: 800px;
+    height: 600px;
+    position: relative;
+    background: #fff;
+}
+
+.game-stimulus {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vector-circle {
+    fill: #3498db;  /* Circle fill color */
+    stroke: #2980b9; /* Circle border color */
+    stroke-width: 2; /* Border width */
+} 

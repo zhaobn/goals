@@ -1,0 +1,12 @@
+playtesting/
+├── js/              # JavaScript files
+│   ├── game/        # Game-specific logic
+│   │   ├── stimuli/ # Game stimuli and configurations
+│   │   └── trials/  # Custom jsPsych trial types
+│   └── experiment.js # Main experiment script
+├── css/             # Stylesheets
+│   └── game.css     # Game-specific styles
+├── assets/          # Game assets
+│   ├── images/      # Visual stimuli
+│   └── audio/       # Audio stimuli
+└── index.html       # Main experiment file 
