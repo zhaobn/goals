@@ -24,6 +24,6 @@ if ! conda activate goals-concepts; then
 fi
 
 ACTUAL_TASK_ID=$(($SLURM_ARRAY_TASK_ID + 17501))
-python value_iteration.py $ACTUAL_TASK_ID
+python simulation_value_iteration.py $ACTUAL_TASK_ID
 
 

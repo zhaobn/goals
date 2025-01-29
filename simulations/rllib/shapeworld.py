@@ -222,23 +222,14 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         )
 
     def reward(self, s: State, a: Action, ns: State) -> float:
-        """Calculate the reward for a state transition.
-        
-        Args:
-            s: Current state
-            a: Action taken
-            ns: Next state
+        """Calculate reward for transitioning from s to ns with action a.
         
         Returns:
             float: STEP_COST (-1) for each action, plus GOAL_REWARD (0) if goal reached
-        
-        Note:
-            GOAL_REWARD is 0 because we average across Q-tables later.
-            This means the reward structure is purely driven by path length to goal.
         """
         reward = self.STEP_COST
         if self._is_goal(ns):
-            reward = 0
+            reward += self.GOAL_REWARD
         return reward
 
     def is_absorbing(self, s: State) -> bool:
@@ -564,8 +555,8 @@ class ShapeWorld(MarkovDecisionProcess[State, Action]):
         return self.action_space
 
     # helper functions
-    def _is_goal(self, ns: State):
-        return self.GOAL == ns
+    def _is_goal(self, s: State):
+        return self.GOAL == s
 
 class GoalWorld(MarkovDecisionProcess[State, State]):
     '''A world where the agent selects goals as actions, using ShapeWorld parameters.
