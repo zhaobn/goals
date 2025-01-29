@@ -5,7 +5,8 @@
 #SBATCH --job-name=RL-goal-planner
 #SBATCH --mem=4g
 #SBATCH --cpus-per-task=1
-#SBATCH --array=0-2182
+##SBATCH --array=0-2181
+#SBATCH --array=0-2500
 
 # Comment out logging directives by default
 #SBATCH -o 'slurm-log/rl-planning-%A_%a.out'
@@ -23,7 +24,7 @@ if ! conda activate goals-concepts; then
     exit 1
 fi
 
-ACTUAL_TASK_ID=$(($SLURM_ARRAY_TASK_ID + 17501))
+ACTUAL_TASK_ID=$(($SLURM_ARRAY_TASK_ID + 15001))
 python value_iteration.py $ACTUAL_TASK_ID
 
 
