@@ -27,6 +27,7 @@ from rllib.mdp import ValueIteration
 ##################################################
 
 def run_value_iteration(goal_index: int, discount_rate: float = 0.95) -> tuple[dict, State]: # thinking of changing discount rate to 0.9
+def run_value_iteration(goal_index: int, discount_rate: float = 0.95) -> tuple[dict, State]:
     """Run value iteration for a specific goal state.
     
     Args:
