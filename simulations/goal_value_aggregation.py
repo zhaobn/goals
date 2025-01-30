@@ -6,6 +6,7 @@ from rllib.shapeworld import State, Shape
 from pathlib import Path
 import logging
 from typing import Dict, Tuple
+import argparse
 
 # Set up logging
 logging.basicConfig(
@@ -18,64 +19,6 @@ logger = logging.getLogger(__name__)
 # from collections import namedtuple
 # Shape = namedtuple('Shape',['sides', 'shade', 'texture'])
 # State = namedtuple('State',['shape1', 'shape2', 'shape3'])
-
-def load_value_functions(directory: str) -> Dict[State, Dict[State, float]]:
-    """Load all value function files from the specified directory.
-    
-    Args:
-        directory: Path to directory containing value function files
-        
-    Returns:
-        Dictionary mapping goal states to their value functions
-        
-    Raises:
-        FileNotFoundError: If directory doesn't exist
-        ValueError: If no .pkl files found in directory
-    """
-    directory_path = Path(directory)
-    if not directory_path.exists():
-        raise FileNotFoundError(f"Directory not found: {directory}")
-    
-    logger.info(f'Loading value functions from directory: {directory}')
-    value_functions = {}
-    pkl_files = list(directory_path.glob('*.pkl'))
-    
-    if not pkl_files:
-        raise ValueError(f"No .pkl files found in {directory}")
-    
-    for filepath in tqdm(pkl_files, desc='Loading files'):
-        try:
-            value_function, goal_state = pd.read_pickle(filepath)
-            value_functions[goal_state] = value_function
-        except Exception as e:
-            logger.error(f"Error loading {filepath}: {str(e)}")
-            continue
-            
-    logger.info(f"Loaded {len(value_functions)} value functions")
-    return value_functions
-
-def calculate_goal_value_functions(
-    value_functions: Dict[State, Dict[State, float]]
-) -> Dict[State, float]:
-    """Calculate the average value for each goal state across all state values.
-    
-    Args:
-        value_functions: Dictionary mapping goal states to their value functions
-        
-    Returns:
-        Dictionary mapping goal states to their average values
-    """
-    logger.info("Calculating goal value functions...")
-    goal_value_function = {}
-    
-    for goal_state, value_function in tqdm(value_functions.items(), desc='Calculating values'):
-        # Convert values to numpy array for faster computation
-        values = np.array(list(value_function.values()))
-        average_value = np.mean(values)
-        goal_value_function[goal_state] = average_value
-        
-    logger.info(f"Calculated values for {len(goal_value_function)} goals")
-    return goal_value_function
 
 def state_to_dict(state: State) -> dict:
     """Convert a State object to a dictionary for CSV output.
@@ -98,65 +41,185 @@ def state_to_dict(state: State) -> dict:
         'shape3_texture': state.shape3.texture
     }
 
-def save_as_csv(goal_value_function: Dict[State, float], output_file: str) -> None:
-    """Save the goal value function as a CSV file.
+def load_summary_statistics(directory: str) -> Tuple[Dict[State, float], Dict[State, float]]:
+    """Load mean and median values from CSV files in the directory.
     
     Args:
-        goal_value_function: Dictionary mapping states to values
-        output_file: Path to save CSV file
+        directory: Path to directory containing value function CSV files
+        
+    Returns:
+        Tuple of two dictionaries: (mean_values, median_values) mapping goal states to their values
         
     Raises:
-        IOError: If unable to write to output file
+        ValueError: If any files failed to load
     """
-    logger.info(f"Saving CSV to {output_file}")
+    directory_path = Path(directory)
+    if not directory_path.exists():
+        raise FileNotFoundError(f"Directory not found: {directory}")
+    
+    logger.info(f'Loading statistics from directory: {directory}')
+    csv_files = list(directory_path.glob('value_function_goal_*.csv'))
+    
+    if not csv_files:
+        raise ValueError(f"No value function CSV files found in {directory}")
+    
+    # Pre-allocate dictionaries with expected size
+    n_files = len(csv_files)
+    mean_values = dict.fromkeys(range(n_files))
+    median_values = dict.fromkeys(range(n_files))
+    
+    logger.info(f"Processing {n_files} files...")
+    
+    failed_files = []
+    for i, filepath in enumerate(tqdm(csv_files, desc='Loading files')):
+        try:
+            # Read only the necessary columns for goal state identification
+            goal_cols = ['is_goal', 'shape1_sides', 'shape1_shade', 'shape1_texture',
+                        'shape2_sides', 'shape2_shade', 'shape2_texture',
+                        'shape3_sides', 'shape3_shade', 'shape3_texture']
+            
+            # First read to find goal state
+            goal_df = pd.read_csv(filepath, usecols=goal_cols)
+            goal_row = goal_df[goal_df['is_goal']].iloc[0]
+            
+            goal_state = State(
+                shape1=Shape(sides=goal_row['shape1_sides'], 
+                           shade=goal_row['shape1_shade'], 
+                           texture=goal_row['shape1_texture']),
+                shape2=Shape(sides=goal_row['shape2_sides'], 
+                           shade=goal_row['shape2_shade'], 
+                           texture=goal_row['shape2_texture']),
+                shape3=Shape(sides=goal_row['shape3_sides'], 
+                           shade=goal_row['shape3_shade'], 
+                           texture=goal_row['shape3_texture'])
+            )
+            
+            # Read only summary rows for statistics
+            summary_df = pd.read_csv(filepath, 
+                                   usecols=['shape1_sides', 'metric', 'value'])
+            summary_rows = summary_df[summary_df['shape1_sides'] == 'SUMMARY']
+            
+            mean_value = float(summary_rows[summary_rows['metric'] == 'mean_value']['value'].iloc[0])
+            median_value = float(summary_rows[summary_rows['metric'] == 'median_value']['value'].iloc[0])
+            
+            mean_values[goal_state] = mean_value
+            median_values[goal_state] = median_value
+            
+        except Exception as e:
+            logger.error(f"Error loading {filepath}: {str(e)}")
+            failed_files.append(filepath)
+            continue
+    
+    # Remove any None values that weren't filled due to errors
+    mean_values = {k: v for k, v in mean_values.items() if v is not None}
+    median_values = {k: v for k, v in median_values.items() if v is not None}
+    
+    # Check if any files failed to load
+    if failed_files:
+        error_msg = f"Failed to load {len(failed_files)} files:\n" + "\n".join(str(f) for f in failed_files)
+        raise ValueError(error_msg)
+            
+    logger.info(f"Loaded statistics for {len(mean_values)} goals")
+    return mean_values, median_values
+
+def save_value_function(value_dict: Dict[State, float], output_file: str, metric_name: str) -> None:
+    """Save the value function as a CSV file.
+    
+    Args:
+        value_dict: Dictionary mapping goal states to their values
+        output_file: Path to save CSV file
+        metric_name: Name of the metric (mean or median)
+    """
+    logger.info(f"Saving {metric_name} values to {output_file}")
     try:
-        # Convert to DataFrame in one go for better performance
-        rows = [
-            {**state_to_dict(state), 'value': value}
-            for state, value in goal_value_function.items()
-        ]
-        df = pd.DataFrame(rows)
+        # Create DataFrame with pre-allocated size
+        n_states = len(value_dict)
         
-        # Add some useful statistics
-        df['value_rank'] = df['value'].rank(method='dense')
-        df['value_percentile'] = df['value'].rank(pct=True)
+        # Sort states by value before creating DataFrame
+        sorted_items = sorted(value_dict.items(), key=lambda x: x[1], reverse=True)
         
-        # Save with compression for large files
-        df.to_csv(output_file, index=False, compression='gzip')
-        logger.info(f"Successfully saved CSV with {len(df)} rows")
+        df = pd.DataFrame({
+            'shape1_sides': [''] * n_states,
+            'shape1_shade': [''] * n_states,
+            'shape1_texture': [''] * n_states,
+            'shape2_sides': [''] * n_states,
+            'shape2_shade': [''] * n_states,
+            'shape2_texture': [''] * n_states,
+            'shape3_sides': [''] * n_states,
+            'shape3_shade': [''] * n_states,
+            'shape3_texture': [''] * n_states,
+            'value': np.zeros(n_states),
+            'metric': np.full(n_states, np.nan),
+            'metric_value': np.full(n_states, np.nan)
+        })
         
-        # Print some basic statistics
-        logger.info("\nValue Statistics:")
-        logger.info(f"Mean: {df['value'].mean():.4f}")
-        logger.info(f"Std: {df['value'].std():.4f}")
-        logger.info(f"Min: {df['value'].min():.4f}")
-        logger.info(f"Max: {df['value'].max():.4f}")
+        # Fill the DataFrame with sorted values
+        for i, (state, value) in enumerate(sorted_items):
+            state_dict = state_to_dict(state)
+            for key, val in state_dict.items():
+                df.loc[i, key] = val
+            df.loc[i, 'value'] = value
+        
+        # Add summary statistics
+        summary_stats = {
+            'total_states': len(df),
+            f'{metric_name}_value': df['value'].mean(),
+            'max_value': df['value'].max(),
+            'min_value': df['value'].min(),
+            'std_value': df['value'].std()
+        }
+        
+        # Create summary rows DataFrame
+        summary_df = pd.DataFrame([{
+            'shape1_sides': 'SUMMARY',
+            'shape1_shade': 'SUMMARY_ROW',
+            'shape1_texture': 'SUMMARY_ROW',
+            'shape2_sides': 'SUMMARY_ROW',
+            'shape2_shade': 'SUMMARY_ROW',
+            'shape2_texture': 'SUMMARY_ROW',
+            'shape3_sides': 'SUMMARY_ROW',
+            'shape3_shade': 'SUMMARY_ROW',
+            'shape3_texture': 'SUMMARY_ROW',
+            'value': value,
+            'metric': metric,
+            'metric_value': str(value)
+        } for metric, value in summary_stats.items()])
+        
+        # Put summary at top, followed by sorted states
+        df = pd.concat([summary_df, df], ignore_index=True)
+        
+        # Save to CSV
+        df.to_csv(output_file, index=False)
+        logger.info(f"Successfully saved {metric_name} values with {len(df)} rows")
         
     except Exception as e:
         raise IOError(f"Failed to save CSV: {str(e)}")
 
 def main():
     """Main execution function."""
+    parser = argparse.ArgumentParser(description='Aggregate value functions from individual goal files.')
+    parser.add_argument('--input-dir', type=str, default='./value-iteration-results',
+                       help='Directory containing value function CSV files (default: ./value-iteration-results)')
+    parser.add_argument('--output-dir', type=str, default='./value-functions',
+                       help='Directory to save aggregated results (default: ./value-functions)')
+    
+    args = parser.parse_args()
+    
     try:
         # Create output directory if it doesn't exist
-        output_dir = Path('./value-functions')
+        output_dir = Path(args.output_dir)
         output_dir.mkdir(exist_ok=True)
         
-        # Load value functions
-        directory = './value-iteration-results'
-        value_functions = load_value_functions(directory)
+        # Load mean and median values from CSV files
+        mean_values, median_values = load_summary_statistics(args.input_dir)
 
-        # Calculate the goal value function
-        goal_value_function = calculate_goal_value_functions(value_functions)
+        # Save mean values
+        mean_output = output_dir / 'goal_value_function_mean.csv'
+        save_value_function(mean_values, mean_output, 'mean')
 
-        # Save as pickle file
-        pkl_output = output_dir / 'goal_value_function.pkl'
-        pd.to_pickle(goal_value_function, pkl_output)
-        logger.info(f'Saved pickle to {pkl_output}')
-
-        # Save as CSV file
-        csv_output = output_dir / 'goal_value_function.csv'
-        save_as_csv(goal_value_function, csv_output)
+        # Save median values
+        median_output = output_dir / 'goal_value_function_median.csv'
+        save_value_function(median_values, median_output, 'median')
         
     except Exception as e:
         logger.error(f"Error in main execution: {str(e)}")
