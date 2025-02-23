@@ -29,7 +29,7 @@ def extract_goal_selection_data(trial_data):
                 action_row.update({
                     'shape_type': clean_property(action['item'].get('type')),
                     'shade': clean_property(action['item'].get('shade')),
-                    'texture': action['item'].get('texture')
+                    'texture': clean_property(action['item'].get('texture'))
                 })
             action_rows.append(action_row)
             
@@ -42,7 +42,7 @@ def extract_goal_selection_data(trial_data):
                 'position': goal['position'],
                 'shape_type': clean_property(goal['item'].get('type')),
                 'shade': clean_property(goal['item'].get('shade')),
-                'texture': goal['item'].get('texture')
+                'texture': clean_property(goal['item'].get('texture'))
             }
             goal_rows.append(goal_row)
             
@@ -64,6 +64,16 @@ def clean_property(value):
     # Remove 'shade-' prefix from shades
     if value.startswith('shade-'):
         value = value[6:]
+        
+    # Map textures to match value function format
+    texture_mapping = {
+        'striped': 'stripes',
+        'dotted': 'dots'
+        # 'plain' stays as 'plain'
+    }
+    
+    if value in texture_mapping:
+        value = texture_mapping[value]
     
     return value
 
@@ -75,16 +85,15 @@ def extract_goal_pursuit_data(trial_data):
         
         # Create rows for pursuit actions
         pursuit_rows = []
-        for action in pursuit_array:
-            # Get the state information
+        for step_num, action in enumerate(pursuit_array, 1):
             state = action.get('state', [])
             
-            # Create base action row
             action_row = {
                 'timestamp': action.get('timestamp'),
                 'actor_position': action.get('actor_position'),
                 'recipient_position': action.get('recipient_position'),
-                'feature': action.get('feature')
+                'feature': action.get('feature'),
+                'step_number': step_num
             }
             
             # Add state information for each position
@@ -92,7 +101,7 @@ def extract_goal_pursuit_data(trial_data):
                 action_row.update({
                     f'state_{i}_type': clean_property(state_item.get('type')),
                     f'state_{i}_shade': clean_property(state_item.get('shade')),
-                    f'state_{i}_texture': state_item.get('texture')
+                    f'state_{i}_texture': clean_property(state_item.get('texture'))
                 })
             
             # Add goal information
@@ -100,7 +109,7 @@ def extract_goal_pursuit_data(trial_data):
                 action_row.update({
                     f'goal_{i}_type': clean_property(goal_item.get('type')),
                     f'goal_{i}_shade': clean_property(goal_item.get('shade')),
-                    f'goal_{i}_texture': goal_item.get('texture')
+                    f'goal_{i}_texture': clean_property(goal_item.get('texture'))
                 })
             
             pursuit_rows.append(action_row)
@@ -138,20 +147,24 @@ def process_all_files():
     """Process all JSON files in the data-raw directory."""
     # Get all JSON files
     json_files = glob.glob('data-raw/*.json')
-    print(f"Found JSON files: {json_files}")  # Debug print
+    print(f"Found JSON files: {json_files}")
     
     all_goal_selections = []
     all_goal_pursuits = []
     all_debrief_responses = []
+    all_selected_goals = []  # New list for selected goals
     
     for file_path in json_files:
         participant_id = os.path.basename(file_path).split('.')[0]
-        print(f"Processing participant {participant_id}")  # Debug print
+        print(f"Processing participant {participant_id}")
         data = load_participant_data(file_path)
-        print(f"Found {len(data)} trials")  # Debug print
+        print(f"Found {len(data)} trials")
+        
+        # Keep track of goal pursuit trial number
+        pursuit_trial_counter = 0
         
         for trial in data:
-            print(f"Processing trial type: {trial.get('trial_type')}")  # Debug print
+            print(f"Processing trial type: {trial.get('trial_type')}")
             # Add participant ID to all data
             trial['participant_id'] = participant_id
             
@@ -169,13 +182,34 @@ def process_all_files():
             goal_pursuit = extract_goal_pursuit_data(trial)
             if goal_pursuit:
                 if goal_pursuit['pursuit'] is not None:
+                    pursuit_trial_counter += 1
+                    
+                    # Extract goal configuration for this trial
+                    goal = trial.get('goal', [])
+                    goal_row = {
+                        'participant_id': participant_id,
+                        'trial_number': pursuit_trial_counter,
+                        'abandoned': goal_pursuit['abandoned'],
+                        'goal_achieved': goal_pursuit['goal_achieved']
+                    }
+                    
+                    # Add goal information
+                    for i, goal_item in enumerate(goal):
+                        goal_row.update({
+                            f'shape_{i}_type': clean_property(goal_item.get('type')),
+                            f'shape_{i}_shade': clean_property(goal_item.get('shade')),
+                            f'shape_{i}_texture': clean_property(goal_item.get('texture'))
+                        })
+                    
+                    all_selected_goals.append(goal_row)
+                    
                     pursuit_df = goal_pursuit['pursuit']
                     pursuit_df['participant_id'] = participant_id
+                    pursuit_df['trial_number'] = pursuit_trial_counter
                     pursuit_df['abandoned'] = goal_pursuit['abandoned']
                     pursuit_df['goal_achieved'] = goal_pursuit['goal_achieved']
                     pursuit_df['steps'] = goal_pursuit['steps']
                     
-                    # Drop the redundant columns
                     cols_to_drop = ['position', 'shape_type', 'shade', 'texture']
                     pursuit_df = pursuit_df.drop(columns=[col for col in cols_to_drop if col in pursuit_df.columns])
                     
@@ -187,18 +221,23 @@ def process_all_files():
                 debrief['participant_id'] = participant_id
                 all_debrief_responses.append(debrief)
     
-    # Combine all data
+    # Create all dataframes
     goal_selections_df = pd.concat(all_goal_selections, ignore_index=True) if all_goal_selections else pd.DataFrame()
     goal_pursuits_df = pd.concat(all_goal_pursuits, ignore_index=True) if all_goal_pursuits else pd.DataFrame()
     debrief_df = pd.concat(all_debrief_responses, ignore_index=True) if all_debrief_responses else pd.DataFrame()
+    selected_goals_df = pd.DataFrame(all_selected_goals) if all_selected_goals else pd.DataFrame()
     
-    return goal_selections_df, goal_pursuits_df, debrief_df
+    return goal_selections_df, goal_pursuits_df, debrief_df, selected_goals_df
 
 if __name__ == "__main__":
+    # Create output directory if it doesn't exist
+    os.makedirs('data-processed', exist_ok=True)
+    
     # Process all files and get dataframes
-    goal_selections, goal_pursuits, debrief = process_all_files()
+    goal_selections, goal_pursuits, debrief, selected_goals = process_all_files()
     
     # Save to CSV files
     goal_selections.to_csv('data-processed/goal_selections.csv', index=False)
     goal_pursuits.to_csv('data-processed/goal_pursuits.csv', index=False)
     debrief.to_csv('data-processed/debrief.csv', index=False)
+    selected_goals.to_csv('data-processed/selected_goals.csv', index=False)
