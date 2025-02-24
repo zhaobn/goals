@@ -72,8 +72,15 @@ def clean_property(value):
         # 'plain' stays as 'plain'
     }
     
+    # Map shape types
+    shape_mapping = {
+        'cloud': 'circle'
+    }
+    
     if value in texture_mapping:
         value = texture_mapping[value]
+    elif value in shape_mapping:
+        value = shape_mapping[value]
     
     return value
 
