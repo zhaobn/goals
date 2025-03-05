@@ -23,7 +23,8 @@ def extract_goal_selection_data(trial_data):
             action_row = {
                 'timestamp': action.get('timestamp'),
                 'action_type': action.get('action'),
-                'position': action.get('position')
+                'position': action.get('position'),
+                'source_position': action.get('source_position')
             }
             if 'item' in action:
                 action_row.update({
@@ -109,24 +110,28 @@ def extract_goal_pursuit_data(trial_data):
                 'timestamp': action.get('timestamp'),
                 'actor_position': action.get('actor_position'),
                 'recipient_position': action.get('recipient_position'),
+                'source_position': action.get('source_position'),
                 'feature': action.get('feature'),
                 'step_number': step_num
             }
             
-            # Add state information for each position
+            # Add state information
             for i, state_item in enumerate(state):
-                action_row.update({
-                    f'state_{i}_type': clean_property(state_item.get('type')),
-                    f'state_{i}_shade': clean_property(state_item.get('shade')),
-                    f'state_{i}_texture': clean_property(state_item.get('texture'))
-                })
+                if state_item:
+                    action_row.update({
+                        f'state_{i}_type': clean_property(state_item.get('type')),
+                        f'state_{i}_shade': clean_property(state_item.get('shade')),
+                        f'state_{i}_texture': clean_property(state_item.get('texture'))
+                    })
             
             # Add goal information
             for i, goal_item in enumerate(goal):
+                if not goal_item.get('item'):
+                    continue
                 action_row.update({
-                    f'goal_{i}_type': clean_property(goal_item.get('type')),
-                    f'goal_{i}_shade': clean_property(goal_item.get('shade')),
-                    f'goal_{i}_texture': clean_property(goal_item.get('texture'))
+                    f'goal_{i}_type': clean_property(goal_item['item'].get('type')),
+                    f'goal_{i}_shade': clean_property(goal_item['item'].get('shade')),
+                    f'goal_{i}_texture': clean_property(goal_item['item'].get('texture'))
                 })
             
             pursuit_rows.append(action_row)
