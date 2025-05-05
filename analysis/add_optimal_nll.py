@@ -95,12 +95,20 @@ def process_participant_data(participant_goals, value_function_df):
         probs = softmax(values, optimal_beta)
         optimal_choice_nlls.append(-np.log(probs[idx] + 1e-10))
     
-    return optimal_beta, optimal_total_nll, optimal_choice_nlls
+    # Calculate BIC
+    n_trials = len(chosen_indices)
+    k_params = 1  # Optimal model has one parameter (beta)
+    optimal_total_bic = 2 * optimal_total_nll + k_params * np.log(n_trials)
+    
+    # Calculate per-trial BIC
+    optimal_choice_bics = [2 * nll + k_params * np.log(n_trials) / n_trials for nll in optimal_choice_nlls]
+    
+    return optimal_beta, optimal_total_nll, optimal_choice_nlls, optimal_total_bic, optimal_choice_bics
 
 def main():
     # Load data
-    selected_goals = pd.read_csv('../data-processed/selected_goals.csv')
-    value_function = pd.read_csv('../../simulations/value-functions/goal_value_function_mean.csv')
+    selected_goals = pd.read_csv('./data-processed/selected_goals.csv')
+    value_function = pd.read_csv('../simulations/value-functions/goal_value_function_mean.csv')
     
     # Remove summary rows from value function
     value_function = value_function[value_function['shape1_sides'] != 'SUMMARY']
@@ -110,16 +118,18 @@ def main():
     for participant_id in selected_goals['participant_id'].unique():
         participant_goals = selected_goals[selected_goals['participant_id'] == participant_id]
         
-        optimal_beta, optimal_total_nll, optimal_choice_nlls = process_participant_data(participant_goals, value_function)
+        optimal_beta, optimal_total_nll, optimal_choice_nlls, optimal_total_bic, optimal_choice_bics = process_participant_data(participant_goals, value_function)
         
         # Add results for each trial
-        for (_, row), optimal_choice_nll in zip(participant_goals.iterrows(), optimal_choice_nlls):
+        for (_, row), optimal_choice_nll, optimal_choice_bic in zip(participant_goals.iterrows(), optimal_choice_nlls, optimal_choice_bics):
             results.append({
                 'participant_id': participant_id,
                 'trial_number': row['trial_number'],
                 'optimal_beta': optimal_beta,
-                'optimal_total_nll': optimal_total_nll,  # Renamed
-                'optimal_choice_nll': optimal_choice_nll  # Renamed
+                'optimal_total_nll': optimal_total_nll,
+                'optimal_choice_nll': optimal_choice_nll,
+                'optimal_total_bic': optimal_total_bic,
+                'optimal_choice_bic': optimal_choice_bic
             })
     
     # Create results dataframe
@@ -133,14 +143,17 @@ def main():
     )
     
     # Save results
-    final_df.to_csv('../data-processed/selected_goals_with_nll.csv', index=False)
+    final_df.to_csv('./data-processed/selected_goals_with_nll.csv', index=False)
     
     # Print summary statistics
     print("\nSummary of optimal betas:")
     print(results_df.groupby('participant_id')['optimal_beta'].first().describe())
     
     print("\nSummary of optimal total NLL per participant:")
-    print(results_df.groupby('participant_id')['optimal_total_nll'].first().describe())  # Updated column name
+    print(results_df.groupby('participant_id')['optimal_total_nll'].first().describe())
+    
+    print("\nSummary of optimal total BIC per participant:")
+    print(results_df.groupby('participant_id')['optimal_total_bic'].first().describe())
 
 if __name__ == "__main__":
     main()

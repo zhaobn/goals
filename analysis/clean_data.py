@@ -168,7 +168,7 @@ def extract_debrief_data(trial_data):
 def process_all_files():
     """Process all JSON files in the data-raw directory."""
     # Get all JSON files
-    json_files = glob.glob('*.json')
+    json_files = glob.glob('./data/*.json')
     print(f"Found JSON files: {json_files}")
     
     all_goal_selections = []
@@ -253,13 +253,13 @@ def process_all_files():
 
 if __name__ == "__main__":
     # Create output directory if it doesn't exist
-    os.makedirs('../data-processed', exist_ok=True)
+    os.makedirs('./data-processed', exist_ok=True)
     
     # Process all files and get dataframes
     goal_selections, goal_pursuits, debrief, selected_goals = process_all_files()
     
     # Save to CSV files
-    goal_selections.to_csv('../data-processed/goal_selections.csv', index=False)
-    goal_pursuits.to_csv('../data-processed/goal_pursuits.csv', index=False)
-    debrief.to_csv('../data-processed/debrief.csv', index=False)
-    selected_goals.to_csv('../data-processed/selected_goals.csv', index=False)
+    goal_selections.to_csv('./data-processed/goal_selections.csv', index=False)
+    goal_pursuits.to_csv('./data-processed/goal_pursuits.csv', index=False)
+    debrief.to_csv('./data-processed/debrief.csv', index=False)
+    selected_goals.to_csv('./data-processed/selected_goals.csv', index=False)

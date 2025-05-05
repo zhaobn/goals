@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy.optimize import minimize
+import os
 
 def softmax(log_probs, beta):
     """Compute softmax probabilities for log probabilities with inverse temperature beta."""
@@ -71,47 +72,64 @@ def process_participant_data(participant_goals, conceptual_probs_df):
         probs = softmax(log_probs, conceptual_beta)
         conceptual_choice_nlls.append(-np.log(probs[idx] + 1e-10))
     
-    return conceptual_beta, conceptual_total_nll, conceptual_choice_nlls
+    # Calculate BIC
+    n_trials = len(chosen_indices)
+    k_params = 1  # Conceptual model has one parameter (beta)
+    conceptual_total_bic = 2 * conceptual_total_nll + k_params * np.log(n_trials)
+    
+    # Calculate per-trial BIC
+    conceptual_choice_bics = [2 * nll + k_params * np.log(n_trials) / n_trials for nll in conceptual_choice_nlls]
+    
+    return conceptual_beta, conceptual_total_nll, conceptual_choice_nlls, conceptual_total_bic, conceptual_choice_bics
 
 def main():
     # Load data
-    selected_goals = pd.read_csv('../data-processed/selected_goals.csv')
-    conceptual_probs = pd.read_csv('../../simulations/state_probabilities.csv')
+    selected_goals = pd.read_csv('./data-processed/selected_goals.csv')
+    conceptual_probs = pd.read_csv('../simulations/pcfg_probabilities.csv')
     
     # Process each participant
     results = []
     for participant_id in selected_goals['participant_id'].unique():
         participant_goals = selected_goals[selected_goals['participant_id'] == participant_id]
         
-        conceptual_beta, conceptual_total_nll, conceptual_choice_nlls = process_participant_data(
+        conceptual_beta, conceptual_total_nll, conceptual_choice_nlls, conceptual_total_bic, conceptual_choice_bics = process_participant_data(
             participant_goals, conceptual_probs
         )
         
         # Add results for each trial
-        for (_, row), conceptual_choice_nll in zip(participant_goals.iterrows(), conceptual_choice_nlls):
+        for (_, row), conceptual_choice_nll, conceptual_choice_bic in zip(participant_goals.iterrows(), conceptual_choice_nlls, conceptual_choice_bics):
             results.append({
                 'participant_id': participant_id,
                 'trial_number': row['trial_number'],
                 'conceptual_beta': conceptual_beta,
                 'conceptual_total_nll': conceptual_total_nll,
-                'conceptual_choice_nll': conceptual_choice_nll
+                'conceptual_choice_nll': conceptual_choice_nll,
+                'conceptual_total_bic': conceptual_total_bic,
+                'conceptual_choice_bic': conceptual_choice_bic
             })
     
     # Create results dataframe
     results_df = pd.DataFrame(results)
     
-    # Load existing NLL results
-    existing_df = pd.read_csv('../data-processed/selected_goals_with_nll.csv')
-    
-    # Merge with existing results
-    final_df = pd.merge(
-        existing_df,
-        results_df,
-        on=['participant_id', 'trial_number']
-    )
+    # Check if the existing NLL file exists
+    if os.path.exists('./data-processed/selected_goals_with_nll.csv'):
+        # Load existing NLL results and merge
+        existing_df = pd.read_csv('./data-processed/selected_goals_with_nll.csv')
+        final_df = pd.merge(
+            existing_df,
+            results_df,
+            on=['participant_id', 'trial_number']
+        )
+    else:
+        # First time running - merge with original selected_goals
+        final_df = pd.merge(
+            selected_goals,
+            results_df,
+            on=['participant_id', 'trial_number']
+        )
     
     # Save results
-    final_df.to_csv('../data-processed/selected_goals_with_nll.csv', index=False)
+    final_df.to_csv('./data-processed/selected_goals_with_nll.csv', index=False)
     
     # Print summary statistics
     print("\nSummary of conceptual betas:")
@@ -119,6 +137,9 @@ def main():
     
     print("\nSummary of conceptual total NLL per participant:")
     print(results_df.groupby('participant_id')['conceptual_total_nll'].first().describe())
+    
+    print("\nSummary of conceptual total BIC per participant:")
+    print(results_df.groupby('participant_id')['conceptual_total_bic'].first().describe())
 
 if __name__ == "__main__":
     main()

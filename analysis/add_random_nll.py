@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 def find_goal_index(row, random_probs_df):
     """Find the index of a goal configuration in the random probabilities dataframe."""
@@ -37,46 +38,63 @@ def process_participant_data(participant_goals, random_probs_df):
     # Total NLL is the sum of individual choice NLLs
     random_total_nll = sum(random_choice_nlls)
     
-    return random_total_nll, random_choice_nlls
+    # Calculate BIC
+    n_trials = len(random_choice_nlls)
+    k_params = 0  # Random model has no parameters
+    random_total_bic = 2 * random_total_nll + k_params * np.log(n_trials)
+    
+    # Calculate per-trial BIC (for random model, this is just 2*NLL since k=0)
+    random_choice_bics = [2 * nll for nll in random_choice_nlls]
+    
+    return random_total_nll, random_choice_nlls, random_total_bic, random_choice_bics
 
 def main():
     # Load data
-    selected_goals = pd.read_csv('../data-processed/selected_goals.csv')
-    random_probs = pd.read_csv('../../simulations/random_state_probabilities.csv')
+    selected_goals = pd.read_csv('./data-processed/selected_goals.csv')
+    random_probs = pd.read_csv('../simulations/random_state_probabilities.csv')
     
     # Process each participant
     results = []
     for participant_id in selected_goals['participant_id'].unique():
         participant_goals = selected_goals[selected_goals['participant_id'] == participant_id]
         
-        random_total_nll, random_choice_nlls = process_participant_data(
+        random_total_nll, random_choice_nlls, random_total_bic, random_choice_bics = process_participant_data(
             participant_goals, random_probs
         )
         
         # Add results for each trial
-        for (_, row), random_choice_nll in zip(participant_goals.iterrows(), random_choice_nlls):
+        for (_, row), random_choice_nll, random_choice_bic in zip(participant_goals.iterrows(), random_choice_nlls, random_choice_bics):
             results.append({
                 'participant_id': participant_id,
                 'trial_number': row['trial_number'],
                 'random_total_nll': random_total_nll,
-                'random_choice_nll': random_choice_nll
+                'random_choice_nll': random_choice_nll,
+                'random_total_bic': random_total_bic,
+                'random_choice_bic': random_choice_bic
             })
     
     # Create results dataframe
     results_df = pd.DataFrame(results)
     
-    # Load existing NLL results
-    existing_df = pd.read_csv('../data-processed/selected_goals_with_nll.csv')
-    
-    # Merge with existing results
-    final_df = pd.merge(
-        existing_df,
-        results_df,
-        on=['participant_id', 'trial_number']
-    )
+    # Check if the existing NLL file exists
+    if os.path.exists('./data-processed/selected_goals_with_nll.csv'):
+        # Load existing NLL results and merge
+        existing_df = pd.read_csv('./data-processed/selected_goals_with_nll.csv')
+        final_df = pd.merge(
+            existing_df,
+            results_df,
+            on=['participant_id', 'trial_number']
+        )
+    else:
+        # First time running - merge with original selected_goals
+        final_df = pd.merge(
+            selected_goals,
+            results_df,
+            on=['participant_id', 'trial_number']
+        )
     
     # Save results
-    final_df.to_csv('../data-processed/selected_goals_with_nll.csv', index=False)
+    final_df.to_csv('./data-processed/selected_goals_with_nll.csv', index=False)
     
     # Print summary statistics
     print("\nSummary of random total NLL per participant:")
@@ -84,6 +102,9 @@ def main():
     
     print("\nSummary of random choice NLL:")
     print(results_df['random_choice_nll'].describe())
+    
+    print("\nSummary of random total BIC per participant:")
+    print(results_df.groupby('participant_id')['random_total_bic'].first().describe())
 
 if __name__ == "__main__":
     main()
